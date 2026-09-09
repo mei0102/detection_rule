@@ -1,6 +1,32 @@
-# MITRE ATT&CK Matrix
+# 検知ルールのマトリクス
 
 公式の戦術列順に、ルールが対応する位置を掲載。技法全体の検知を意味するものではありません。
+
+## ログ種別ごとの集計
+
+|対象ログ|ルール数|対応技法数|ルール|
+|---|---:|---:|---|
+|Windows Event|5|5|[WIN-001](rules/windows/WIN-001.md), [WIN-002](rules/windows/WIN-002.md), [WIN-003](rules/windows/WIN-003.md), [WIN-004](rules/windows/WIN-004.md), [WIN-005](rules/windows/WIN-005.md)|
+|FW|2|2|[FW-001](rules/fw/FW-001.md), [FW-002](rules/fw/FW-002.md)|
+|Proxy|2|1|[PROXY-001](rules/proxy/PROXY-001.md), [PROXY-002](rules/proxy/PROXY-002.md)|
+|DNS|1|1|[DNS-001](rules/dns/DNS-001.md)|
+|**合計**|**10**|**9**| |
+
+技法数はサブ技法IDを含む重複なしの件数です。同じルールの複数戦術への掲載は重複計上しません。
+
+## 技法 × ログ
+
+|ATT&CK技法|Windows Event|FW|Proxy|DNS|
+|---|---|---|---|---|
+|T1021.001|—|[FW-002](rules/fw/FW-002.md)|—|—|
+|T1046|—|[FW-001](rules/fw/FW-001.md)|—|—|
+|T1053.005|[WIN-005](rules/windows/WIN-005.md)|—|—|—|
+|T1059.001|[WIN-001](rules/windows/WIN-001.md)|—|—|—|
+|T1071.004|—|—|—|[DNS-001](rules/dns/DNS-001.md)|
+|T1098.007|[WIN-004](rules/windows/WIN-004.md)|—|—|—|
+|T1105|—|—|[PROXY-001](rules/proxy/PROXY-001.md), [PROXY-002](rules/proxy/PROXY-002.md)|—|
+|T1110.001|[WIN-003](rules/windows/WIN-003.md)|—|—|—|
+|T1685.005|[WIN-002](rules/windows/WIN-002.md)|—|—|—|
 
 ## 戦術列 1〜8
 
@@ -13,7 +39,7 @@
 
 |[TA0006 Credential Access](https://attack.mitre.org/tactics/TA0006)|[TA0007 Discovery](https://attack.mitre.org/tactics/TA0007)|[TA0008 Lateral Movement](https://attack.mitre.org/tactics/TA0008)|[TA0009 Collection](https://attack.mitre.org/tactics/TA0009)|[TA0011 Command and Control](https://attack.mitre.org/tactics/TA0011)|[TA0010 Exfiltration](https://attack.mitre.org/tactics/TA0010)|[TA0040 Impact](https://attack.mitre.org/tactics/TA0040)|
 |---|---|---|---|---|---|---|
-|[T1110.001 Password Guessing](https://attack.mitre.org/techniques/T1110/001)<br>[WIN-003](rules/windows/WIN-003.md)|[T1046 Network Service Discovery](https://attack.mitre.org/techniques/T1046)<br>[FW-001](rules/fw/FW-001.md)|[T1021.001 Remote Desktop Protocol](https://attack.mitre.org/techniques/T1021/001)<br>[FW-002](rules/fw/FW-002.md)|—|[T1071.004 DNS](https://attack.mitre.org/techniques/T1071/004)<br>[NDR-001](rules/ndr/NDR-001.md)|—|—|
+|[T1110.001 Password Guessing](https://attack.mitre.org/techniques/T1110/001)<br>[WIN-003](rules/windows/WIN-003.md)|[T1046 Network Service Discovery](https://attack.mitre.org/techniques/T1046)<br>[FW-001](rules/fw/FW-001.md)|[T1021.001 Remote Desktop Protocol](https://attack.mitre.org/techniques/T1021/001)<br>[FW-002](rules/fw/FW-002.md)|—|[T1071.004 DNS](https://attack.mitre.org/techniques/T1071/004)<br>[DNS-001](rules/dns/DNS-001.md)|—|—|
 | | | | |[T1105 Ingress Tool Transfer](https://attack.mitre.org/techniques/T1105)<br>[PROXY-001](rules/proxy/PROXY-001.md)| | |
 | | | | |[T1105 Ingress Tool Transfer](https://attack.mitre.org/techniques/T1105)<br>[PROXY-002](rules/proxy/PROXY-002.md)| | |
 

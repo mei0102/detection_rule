@@ -2,13 +2,15 @@
 
 Splunk向けの検知ルール集。SPLは各Markdownに掲載しています。
 
-[MITRE ATT&CK Matrix](MATRIX.md)
+[ATT&CKマトリクス・ログ別集計](MATRIX.md)
+
+Windows Event **5件** ／ FW **2件** ／ Proxy **2件** ／ DNS **1件**（合計 **10件**）
 
 |対象ログ|ルール|
 |---|---|
 |FW|[FW-001 単一宛先への多数ポート接続試行](rules/fw/FW-001.md)|
 |FW|[FW-002 内部複数ホストへのRDPポート接続許可](rules/fw/FW-002.md)|
-|NDR|[NDR-001 長いDNSラベルを持つ多数の異なる問い合わせ](rules/ndr/NDR-001.md)|
+|DNS|[DNS-001 長いDNSラベルを持つ多数の異なる問い合わせ](rules/dns/DNS-001.md)|
 |Proxy|[PROXY-001 実行形式を示すURLからの取得成功](rules/proxy/PROXY-001.md)|
 |Proxy|[PROXY-002 PowerShell User-AgentからのHTTP取得](rules/proxy/PROXY-002.md)|
 |Windows Event|[WIN-001 EncodedCommandを使うPowerShell](rules/windows/WIN-001.md)|

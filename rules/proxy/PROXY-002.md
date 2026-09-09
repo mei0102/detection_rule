@@ -13,16 +13,13 @@ PowerShellを名乗るUser-AgentからのGET／HTTP 200を検知。
 
 ```spl
 index=detection_lab log_type="proxy" earliest=-10m@m latest=-5m@m
-| where isnotnull(_time)
-    AND isnotnull(http_method)
-    AND isnotnull(http_status)
-    AND isnotnull(log_type)
-    AND isnotnull(src_ip)
-    AND isnotnull(user_agent)
-    AND http_method="GET"
+| where http_method="GET"
     AND http_status=200
     AND match(user_agent, "(?i)WindowsPowerShell|PowerShell/")
-| stats count as observed min(_time) as first_seen max(_time) as last_seen by src_ip
+| stats count as observed
+        min(_time) as first_seen
+        max(_time) as last_seen
+    by src_ip
 | where observed >= 1
 | eval rule_id="PROXY-002", attack_id="T1105"
 ```
