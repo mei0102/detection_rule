@@ -1,25 +1,22 @@
 # detection_rule
 
-TTPを起点に、MITRE ATT&CK × 対象ログで検知を育てるリポジトリです。
-初期10ルールは **experimental**。合成ログで条件を検証済みですが、実環境の検知率・誤検知率やSplunk上での実行は未検証です。
+Splunk向けの検知ルール集。SPLは各Markdownに掲載しています。
 
-## はじめに
+[MITRE ATT&CK Matrix](MATRIX.md)
 
-- [TTP × ログのマトリクス](docs/matrix.md)：記載は候補カバレッジであり、技法全体の検知保証ではありません。
-- [対象ログと必要フィールド](docs/log-sources.md)：採取設定、型、正規化の契約。
-- [導入と検証](docs/deployment.md)：SPLの実行条件、テスト、チューニング。
-- [参考資料と出典管理](docs/references.md)：SigmaHQ、Splunk ESCU、YARAの位置づけ。
-- [日次追加の手順](docs/daily.md)：未カバーのTTPを優先して1日1件以上追加。
-- `rules/`：機械可読な独自JSON仕様。SigmaやYARAの形式ではありません。
-- `docs/rules/`：検知SPL・調査SPLをMarkdown本文に収録。条件は `=` / `~=` / `>=` 表記。必要フィールド、誤検知、具体的な調査と限界、タイトル・概要付き参考文献も記載。
-- `data/attack.json`：公式STIXから抽出した戦術の順序と対象技法。固定commitと確認日を記録。
-- `tests/fixtures/`：無害な合成イベント。攻撃コマンドの実行は不要です。
+|対象ログ|ルール|
+|---|---|
+|FW|[FW-001 単一宛先への多数ポート接続試行](rules/fw/FW-001.md)|
+|FW|[FW-002 内部複数ホストへのRDPポート接続許可](rules/fw/FW-002.md)|
+|NDR|[NDR-001 長いDNSラベルを持つ多数の異なる問い合わせ](rules/ndr/NDR-001.md)|
+|Proxy|[PROXY-001 実行形式を示すURLからの取得成功](rules/proxy/PROXY-001.md)|
+|Proxy|[PROXY-002 PowerShell User-AgentからのHTTP取得](rules/proxy/PROXY-002.md)|
+|Windows Event|[WIN-001 EncodedCommandを使うPowerShell](rules/windows/WIN-001.md)|
+|Windows Event|[WIN-002 Security監査ログの消去](rules/windows/WIN-002.md)|
+|Windows Event|[WIN-003 同一送信元・利用者への認証失敗集中](rules/windows/WIN-003.md)|
+|Windows Event|[WIN-004 ローカルAdministratorsへのメンバー追加](rules/windows/WIN-004.md)|
+|Windows Event|[WIN-005 新規スケジュールタスクの作成](rules/windows/WIN-005.md)|
 
-```sh
-python tools/build.py
-python -m unittest discover -s tests -v
-```
+`index=detection_lab` とフィールド名は環境に合わせて読み替えてください。SPLは正規化済みログを前提に、5分間隔・5分遅延で検索します。
 
-SIEMは **Splunk Enterprise / Splunk Cloud Platform** を想定。ESCU/CIMの導入は必須ではありません。各カードのSPLを利用し、製品別のフィールド抽出を[導入手順](docs/deployment.md)に沿って合わせます。
-Python 3.11以上、追加パッケージ不要。JSONは再生成・合成テスト用の内部定義です。
-ルールの件数を増やすことより、ログで観測できる根拠とテストを優先します。
+ATT&CKの位置は検知対象との対応を示します。各ルールは実環境での動作を保証するものではありません。
