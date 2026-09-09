@@ -1,0 +1,43 @@
+{
+  "id": "WIN-002",
+  "title": "Security監査ログの消去",
+  "status": "experimental",
+  "created": "2026-09-09",
+  "log_source": "windows",
+  "attack_id": "T1070.001",
+  "tactic": "defense-evasion",
+  "required_fields": [
+    "_time",
+    "channel",
+    "event_id",
+    "host",
+    "log_type"
+  ],
+  "conditions": [
+    [
+      "channel",
+      "eq",
+      "Security"
+    ],
+    [
+      "event_id",
+      "eq",
+      1102
+    ]
+  ],
+  "group_by": [
+    "host"
+  ],
+  "window_seconds": 300,
+  "metric": "count",
+  "threshold": 1,
+  "level": "medium",
+  "false_positives": "承認済みの保守や検証環境のログ初期化。",
+  "triage": "SubjectUserName、SubjectLogonIdを取得し、作業申請・4624と照合。消去直前のログを保全。",
+  "prerequisites": "Securityチャネルを中央転送し、消去前後の転送欠損を監視。",
+  "limitations": "1102到着前の転送停止や他チャネル消去は対象外。",
+  "references": [
+    "https://attack.mitre.org/techniques/T1070/001/"
+  ],
+  "provenance": "original; upstream ideas and references only; no copied rule text"
+}

@@ -1,0 +1,374 @@
+[
+  {
+    "name": "positive",
+    "events": [
+      {
+        "_time": 1800000000,
+        "log_type": "fw",
+        "transport": "tcp",
+        "src_ip": "192.0.2.10",
+        "dest_ip": "192.0.2.20",
+        "dest_port": 1
+      },
+      {
+        "_time": 1800000000,
+        "log_type": "fw",
+        "transport": "tcp",
+        "src_ip": "192.0.2.10",
+        "dest_ip": "192.0.2.20",
+        "dest_port": 2
+      },
+      {
+        "_time": 1800000000,
+        "log_type": "fw",
+        "transport": "tcp",
+        "src_ip": "192.0.2.10",
+        "dest_ip": "192.0.2.20",
+        "dest_port": 3
+      },
+      {
+        "_time": 1800000000,
+        "log_type": "fw",
+        "transport": "tcp",
+        "src_ip": "192.0.2.10",
+        "dest_ip": "192.0.2.20",
+        "dest_port": 4
+      },
+      {
+        "_time": 1800000000,
+        "log_type": "fw",
+        "transport": "tcp",
+        "src_ip": "192.0.2.10",
+        "dest_ip": "192.0.2.20",
+        "dest_port": 5
+      },
+      {
+        "_time": 1800000000,
+        "log_type": "fw",
+        "transport": "tcp",
+        "src_ip": "192.0.2.10",
+        "dest_ip": "192.0.2.20",
+        "dest_port": 6
+      },
+      {
+        "_time": 1800000000,
+        "log_type": "fw",
+        "transport": "tcp",
+        "src_ip": "192.0.2.10",
+        "dest_ip": "192.0.2.20",
+        "dest_port": 7
+      },
+      {
+        "_time": 1800000000,
+        "log_type": "fw",
+        "transport": "tcp",
+        "src_ip": "192.0.2.10",
+        "dest_ip": "192.0.2.20",
+        "dest_port": 8
+      },
+      {
+        "_time": 1800000000,
+        "log_type": "fw",
+        "transport": "tcp",
+        "src_ip": "192.0.2.10",
+        "dest_ip": "192.0.2.20",
+        "dest_port": 9
+      },
+      {
+        "_time": 1800000000,
+        "log_type": "fw",
+        "transport": "tcp",
+        "src_ip": "192.0.2.10",
+        "dest_ip": "192.0.2.20",
+        "dest_port": 10
+      },
+      {
+        "_time": 1800000000,
+        "log_type": "fw",
+        "transport": "tcp",
+        "src_ip": "192.0.2.10",
+        "dest_ip": "192.0.2.20",
+        "dest_port": 11
+      },
+      {
+        "_time": 1800000000,
+        "log_type": "fw",
+        "transport": "tcp",
+        "src_ip": "192.0.2.10",
+        "dest_ip": "192.0.2.20",
+        "dest_port": 12
+      },
+      {
+        "_time": 1800000000,
+        "log_type": "fw",
+        "transport": "tcp",
+        "src_ip": "192.0.2.10",
+        "dest_ip": "192.0.2.20",
+        "dest_port": 13
+      },
+      {
+        "_time": 1800000000,
+        "log_type": "fw",
+        "transport": "tcp",
+        "src_ip": "192.0.2.10",
+        "dest_ip": "192.0.2.20",
+        "dest_port": 14
+      },
+      {
+        "_time": 1800000000,
+        "log_type": "fw",
+        "transport": "tcp",
+        "src_ip": "192.0.2.10",
+        "dest_ip": "192.0.2.20",
+        "dest_port": 15
+      },
+      {
+        "_time": 1800000000,
+        "log_type": "fw",
+        "transport": "tcp",
+        "src_ip": "192.0.2.10",
+        "dest_ip": "192.0.2.20",
+        "dest_port": 16
+      },
+      {
+        "_time": 1800000000,
+        "log_type": "fw",
+        "transport": "tcp",
+        "src_ip": "192.0.2.10",
+        "dest_ip": "192.0.2.20",
+        "dest_port": 17
+      },
+      {
+        "_time": 1800000000,
+        "log_type": "fw",
+        "transport": "tcp",
+        "src_ip": "192.0.2.10",
+        "dest_ip": "192.0.2.20",
+        "dest_port": 18
+      },
+      {
+        "_time": 1800000000,
+        "log_type": "fw",
+        "transport": "tcp",
+        "src_ip": "192.0.2.10",
+        "dest_ip": "192.0.2.20",
+        "dest_port": 19
+      },
+      {
+        "_time": 1800000000,
+        "log_type": "fw",
+        "transport": "tcp",
+        "src_ip": "192.0.2.10",
+        "dest_ip": "192.0.2.20",
+        "dest_port": 20
+      }
+    ],
+    "expected": true
+  },
+  {
+    "name": "negative",
+    "events": [
+      {
+        "_time": 1800000000,
+        "log_type": "fw",
+        "transport": "tcp",
+        "src_ip": "192.0.2.10",
+        "dest_ip": "192.0.2.20",
+        "dest_port": 443
+      },
+      {
+        "_time": 1800000000,
+        "log_type": "fw",
+        "transport": "tcp",
+        "src_ip": "192.0.2.10",
+        "dest_ip": "192.0.2.20",
+        "dest_port": 443
+      },
+      {
+        "_time": 1800000000,
+        "log_type": "fw",
+        "transport": "tcp",
+        "src_ip": "192.0.2.10",
+        "dest_ip": "192.0.2.20",
+        "dest_port": 443
+      },
+      {
+        "_time": 1800000000,
+        "log_type": "fw",
+        "transport": "tcp",
+        "src_ip": "192.0.2.10",
+        "dest_ip": "192.0.2.20",
+        "dest_port": 443
+      },
+      {
+        "_time": 1800000000,
+        "log_type": "fw",
+        "transport": "tcp",
+        "src_ip": "192.0.2.10",
+        "dest_ip": "192.0.2.20",
+        "dest_port": 443
+      },
+      {
+        "_time": 1800000000,
+        "log_type": "fw",
+        "transport": "tcp",
+        "src_ip": "192.0.2.10",
+        "dest_ip": "192.0.2.20",
+        "dest_port": 443
+      },
+      {
+        "_time": 1800000000,
+        "log_type": "fw",
+        "transport": "tcp",
+        "src_ip": "192.0.2.10",
+        "dest_ip": "192.0.2.20",
+        "dest_port": 443
+      },
+      {
+        "_time": 1800000000,
+        "log_type": "fw",
+        "transport": "tcp",
+        "src_ip": "192.0.2.10",
+        "dest_ip": "192.0.2.20",
+        "dest_port": 443
+      },
+      {
+        "_time": 1800000000,
+        "log_type": "fw",
+        "transport": "tcp",
+        "src_ip": "192.0.2.10",
+        "dest_ip": "192.0.2.20",
+        "dest_port": 443
+      },
+      {
+        "_time": 1800000000,
+        "log_type": "fw",
+        "transport": "tcp",
+        "src_ip": "192.0.2.10",
+        "dest_ip": "192.0.2.20",
+        "dest_port": 443
+      },
+      {
+        "_time": 1800000000,
+        "log_type": "fw",
+        "transport": "tcp",
+        "src_ip": "192.0.2.10",
+        "dest_ip": "192.0.2.20",
+        "dest_port": 443
+      },
+      {
+        "_time": 1800000000,
+        "log_type": "fw",
+        "transport": "tcp",
+        "src_ip": "192.0.2.10",
+        "dest_ip": "192.0.2.20",
+        "dest_port": 443
+      },
+      {
+        "_time": 1800000000,
+        "log_type": "fw",
+        "transport": "tcp",
+        "src_ip": "192.0.2.10",
+        "dest_ip": "192.0.2.20",
+        "dest_port": 443
+      },
+      {
+        "_time": 1800000000,
+        "log_type": "fw",
+        "transport": "tcp",
+        "src_ip": "192.0.2.10",
+        "dest_ip": "192.0.2.20",
+        "dest_port": 443
+      },
+      {
+        "_time": 1800000000,
+        "log_type": "fw",
+        "transport": "tcp",
+        "src_ip": "192.0.2.10",
+        "dest_ip": "192.0.2.20",
+        "dest_port": 443
+      },
+      {
+        "_time": 1800000000,
+        "log_type": "fw",
+        "transport": "tcp",
+        "src_ip": "192.0.2.10",
+        "dest_ip": "192.0.2.20",
+        "dest_port": 443
+      },
+      {
+        "_time": 1800000000,
+        "log_type": "fw",
+        "transport": "tcp",
+        "src_ip": "192.0.2.10",
+        "dest_ip": "192.0.2.20",
+        "dest_port": 443
+      },
+      {
+        "_time": 1800000000,
+        "log_type": "fw",
+        "transport": "tcp",
+        "src_ip": "192.0.2.10",
+        "dest_ip": "192.0.2.20",
+        "dest_port": 443
+      },
+      {
+        "_time": 1800000000,
+        "log_type": "fw",
+        "transport": "tcp",
+        "src_ip": "192.0.2.10",
+        "dest_ip": "192.0.2.20",
+        "dest_port": 443
+      },
+      {
+        "_time": 1800000000,
+        "log_type": "fw",
+        "transport": "tcp",
+        "src_ip": "192.0.2.10",
+        "dest_ip": "192.0.2.20",
+        "dest_port": 443
+      },
+      {
+        "_time": 1800000000,
+        "log_type": "fw",
+        "transport": "tcp",
+        "src_ip": "192.0.2.10",
+        "dest_ip": "192.0.2.20",
+        "dest_port": 443
+      },
+      {
+        "_time": 1800000000,
+        "log_type": "fw",
+        "transport": "tcp",
+        "src_ip": "192.0.2.10",
+        "dest_ip": "192.0.2.20",
+        "dest_port": 443
+      },
+      {
+        "_time": 1800000000,
+        "log_type": "fw",
+        "transport": "tcp",
+        "src_ip": "192.0.2.10",
+        "dest_ip": "192.0.2.20",
+        "dest_port": 443
+      },
+      {
+        "_time": 1800000000,
+        "log_type": "fw",
+        "transport": "tcp",
+        "src_ip": "192.0.2.10",
+        "dest_ip": "192.0.2.20",
+        "dest_port": 443
+      },
+      {
+        "_time": 1800000000,
+        "log_type": "fw",
+        "transport": "tcp",
+        "src_ip": "192.0.2.10",
+        "dest_ip": "192.0.2.20",
+        "dest_port": 443
+      }
+    ],
+    "expected": false
+  }
+]

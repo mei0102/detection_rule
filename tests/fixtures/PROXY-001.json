@@ -1,0 +1,30 @@
+[
+  {
+    "name": "positive",
+    "events": [
+      {
+        "_time": 1800000000,
+        "log_type": "proxy",
+        "http_method": "GET",
+        "http_status": 200,
+        "url": "https://download.example/tool.exe?x=1",
+        "src_ip": "192.0.2.10"
+      }
+    ],
+    "expected": true
+  },
+  {
+    "name": "negative",
+    "events": [
+      {
+        "_time": 1800000000,
+        "log_type": "proxy",
+        "http_method": "GET",
+        "http_status": 404,
+        "url": "https://download.example/tool.exe",
+        "src_ip": "192.0.2.10"
+      }
+    ],
+    "expected": false
+  }
+]

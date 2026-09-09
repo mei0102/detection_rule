@@ -1,0 +1,49 @@
+{
+  "id": "PROXY-001",
+  "title": "実行形式を示すURLからの取得成功",
+  "status": "experimental",
+  "created": "2026-09-09",
+  "log_source": "proxy",
+  "attack_id": "T1105",
+  "tactic": "command-and-control",
+  "required_fields": [
+    "_time",
+    "http_method",
+    "http_status",
+    "log_type",
+    "src_ip",
+    "url"
+  ],
+  "conditions": [
+    [
+      "http_method",
+      "eq",
+      "GET"
+    ],
+    [
+      "http_status",
+      "eq",
+      200
+    ],
+    [
+      "url",
+      "regex",
+      "(?i)\\.(exe|dll|ps1|msi)(\\?|$)"
+    ]
+  ],
+  "group_by": [
+    "src_ip"
+  ],
+  "window_seconds": 300,
+  "metric": "count",
+  "threshold": 1,
+  "level": "low",
+  "false_positives": "正規ソフトウェア、配布サーバ、開発ツール。",
+  "triage": "ドメイン評判、Content-Type、ハッシュ、署名、後続実行を確認。",
+  "prerequisites": "完全URLとHTTPレスポンスステータスを収集。TLS復号・端末側可視性が必要な場合がある。",
+  "limitations": "低特異度のハンティング。拡張子偽装、拡張子なし、206応答は対象外。取得と実行は別。",
+  "references": [
+    "https://attack.mitre.org/techniques/T1105/"
+  ],
+  "provenance": "original; upstream ideas and references only; no copied rule text"
+}

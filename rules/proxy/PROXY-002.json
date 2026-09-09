@@ -1,0 +1,49 @@
+{
+  "id": "PROXY-002",
+  "title": "PowerShell User-AgentからのHTTP取得",
+  "status": "experimental",
+  "created": "2026-09-09",
+  "log_source": "proxy",
+  "attack_id": "T1105",
+  "tactic": "command-and-control",
+  "required_fields": [
+    "_time",
+    "http_method",
+    "http_status",
+    "log_type",
+    "src_ip",
+    "user_agent"
+  ],
+  "conditions": [
+    [
+      "http_method",
+      "eq",
+      "GET"
+    ],
+    [
+      "http_status",
+      "eq",
+      200
+    ],
+    [
+      "user_agent",
+      "regex",
+      "(?i)WindowsPowerShell|PowerShell/"
+    ]
+  ],
+  "group_by": [
+    "src_ip"
+  ],
+  "window_seconds": 300,
+  "metric": "count",
+  "threshold": 1,
+  "level": "low",
+  "false_positives": "運用スクリプトやAPI取得。",
+  "triage": "URL、宛先、ユーザーと同時刻4688/4104を確認。承認済み自動化と照合。",
+  "prerequisites": "HTTP User-Agentを保存。HTTPS CONNECTだけでは判定不能。",
+  "limitations": "User-Agentは偽装・省略可能。PowerShell通信だけでツール転送や悪性とは断定しない。",
+  "references": [
+    "https://attack.mitre.org/techniques/T1105/"
+  ],
+  "provenance": "original; upstream ideas and references only; no copied rule text"
+}

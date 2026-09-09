@@ -1,0 +1,57 @@
+{
+  "id": "WIN-003",
+  "title": "同一送信元・利用者への認証失敗集中",
+  "status": "experimental",
+  "created": "2026-09-09",
+  "log_source": "windows",
+  "attack_id": "T1110.001",
+  "tactic": "credential-access",
+  "required_fields": [
+    "_time",
+    "channel",
+    "event_id",
+    "host",
+    "log_type",
+    "src_ip",
+    "user"
+  ],
+  "conditions": [
+    [
+      "channel",
+      "eq",
+      "Security"
+    ],
+    [
+      "event_id",
+      "eq",
+      4625
+    ],
+    [
+      "src_ip",
+      "regex",
+      "^(?!-$).+"
+    ],
+    [
+      "user",
+      "regex",
+      "^(?!-$).+"
+    ]
+  ],
+  "group_by": [
+    "host",
+    "src_ip",
+    "user"
+  ],
+  "window_seconds": 300,
+  "metric": "count",
+  "threshold": 10,
+  "level": "medium",
+  "false_positives": "古いパスワードのサービス、入力ミス、共有NAT。",
+  "triage": "Status/SubStatus、LogonType、後続4624、送信元資産を確認。",
+  "prerequisites": "Audit Logon Failure。IpAddressとTargetUserNameを正規化。重複イベントを除去。",
+  "limitations": "5分10回は初期値。低速攻撃、複数ユーザーへのスプレー、IP欠損、4771/4776だけの失敗は対象外。",
+  "references": [
+    "https://attack.mitre.org/techniques/T1110/001/"
+  ],
+  "provenance": "original; upstream ideas and references only; no copied rule text"
+}

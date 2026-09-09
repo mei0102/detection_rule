@@ -1,0 +1,57 @@
+{
+  "id": "WIN-001",
+  "title": "EncodedCommandを使うPowerShell",
+  "status": "experimental",
+  "created": "2026-09-09",
+  "log_source": "windows",
+  "attack_id": "T1059.001",
+  "tactic": "execution",
+  "required_fields": [
+    "_time",
+    "channel",
+    "command_line",
+    "event_id",
+    "host",
+    "log_type",
+    "process_path"
+  ],
+  "conditions": [
+    [
+      "channel",
+      "eq",
+      "Security"
+    ],
+    [
+      "event_id",
+      "eq",
+      4688
+    ],
+    [
+      "process_path",
+      "regex",
+      "(?i)(^|[\\\\/])(powershell|pwsh)\\.exe$"
+    ],
+    [
+      "command_line",
+      "regex",
+      "(?i)(^|\\s)-(e|en|enc|enco|encod|encode|encoded|encodedc|encodedco|encodedcom|encodedcomm|encodedcomma|encodedcomman|encodedcommand)\\s+\\S+"
+    ]
+  ],
+  "group_by": [
+    "host"
+  ],
+  "window_seconds": 300,
+  "metric": "count",
+  "threshold": 1,
+  "level": "medium",
+  "false_positives": "構成管理・管理者の正規スクリプト。署名、親プロセス、利用者、実行時間を組み合わせて除外する。",
+  "triage": "元の4688、親プロセス、実行者、後続通信を確認。Base64は文字列として復号し、実行しない。",
+  "prerequisites": "Audit Process CreationとInclude command line in process creation eventsを有効化。",
+  "limitations": "名前変更、インプロセス実行、Unicodeスイッチは対象外。エンコードだけでは悪性と断定できない。",
+  "references": [
+    "https://attack.mitre.org/techniques/T1059/001/",
+    "https://github.com/SigmaHQ/sigma/blob/5c9b21756f4e3ba137c1773ac9ba5a8332188961/rules/windows/process_creation/proc_creation_win_powershell_base64_encoded_cmd.yml",
+    "https://github.com/splunk/security_content/blob/4cd62e811c5eddf1245c780d48823d7b38998566/detections/endpoint/malicious_powershell_process___encoded_command.yml"
+  ],
+  "provenance": "original; upstream ideas and references only; no copied rule text"
+}

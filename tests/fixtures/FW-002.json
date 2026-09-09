@@ -1,0 +1,234 @@
+[
+  {
+    "name": "positive",
+    "events": [
+      {
+        "_time": 1800000000,
+        "log_type": "fw",
+        "transport": "tcp",
+        "dest_port": 3389,
+        "action": "allow",
+        "src_zone": "internal",
+        "dest_zone": "internal",
+        "src_ip": "192.0.2.10",
+        "dest_ip": "192.0.2.20"
+      },
+      {
+        "_time": 1800000000,
+        "log_type": "fw",
+        "transport": "tcp",
+        "dest_port": 3389,
+        "action": "allow",
+        "src_zone": "internal",
+        "dest_zone": "internal",
+        "src_ip": "192.0.2.10",
+        "dest_ip": "192.0.2.21"
+      },
+      {
+        "_time": 1800000000,
+        "log_type": "fw",
+        "transport": "tcp",
+        "dest_port": 3389,
+        "action": "allow",
+        "src_zone": "internal",
+        "dest_zone": "internal",
+        "src_ip": "192.0.2.10",
+        "dest_ip": "192.0.2.22"
+      },
+      {
+        "_time": 1800000000,
+        "log_type": "fw",
+        "transport": "tcp",
+        "dest_port": 3389,
+        "action": "allow",
+        "src_zone": "internal",
+        "dest_zone": "internal",
+        "src_ip": "192.0.2.10",
+        "dest_ip": "192.0.2.23"
+      },
+      {
+        "_time": 1800000000,
+        "log_type": "fw",
+        "transport": "tcp",
+        "dest_port": 3389,
+        "action": "allow",
+        "src_zone": "internal",
+        "dest_zone": "internal",
+        "src_ip": "192.0.2.10",
+        "dest_ip": "192.0.2.24"
+      },
+      {
+        "_time": 1800000000,
+        "log_type": "fw",
+        "transport": "tcp",
+        "dest_port": 3389,
+        "action": "allow",
+        "src_zone": "internal",
+        "dest_zone": "internal",
+        "src_ip": "192.0.2.10",
+        "dest_ip": "192.0.2.25"
+      },
+      {
+        "_time": 1800000000,
+        "log_type": "fw",
+        "transport": "tcp",
+        "dest_port": 3389,
+        "action": "allow",
+        "src_zone": "internal",
+        "dest_zone": "internal",
+        "src_ip": "192.0.2.10",
+        "dest_ip": "192.0.2.26"
+      },
+      {
+        "_time": 1800000000,
+        "log_type": "fw",
+        "transport": "tcp",
+        "dest_port": 3389,
+        "action": "allow",
+        "src_zone": "internal",
+        "dest_zone": "internal",
+        "src_ip": "192.0.2.10",
+        "dest_ip": "192.0.2.27"
+      },
+      {
+        "_time": 1800000000,
+        "log_type": "fw",
+        "transport": "tcp",
+        "dest_port": 3389,
+        "action": "allow",
+        "src_zone": "internal",
+        "dest_zone": "internal",
+        "src_ip": "192.0.2.10",
+        "dest_ip": "192.0.2.28"
+      },
+      {
+        "_time": 1800000000,
+        "log_type": "fw",
+        "transport": "tcp",
+        "dest_port": 3389,
+        "action": "allow",
+        "src_zone": "internal",
+        "dest_zone": "internal",
+        "src_ip": "192.0.2.10",
+        "dest_ip": "192.0.2.29"
+      }
+    ],
+    "expected": true
+  },
+  {
+    "name": "negative",
+    "events": [
+      {
+        "_time": 1800000000,
+        "log_type": "fw",
+        "transport": "tcp",
+        "dest_port": 3389,
+        "action": "deny",
+        "src_zone": "internal",
+        "dest_zone": "internal",
+        "src_ip": "192.0.2.10",
+        "dest_ip": "192.0.2.20"
+      },
+      {
+        "_time": 1800000000,
+        "log_type": "fw",
+        "transport": "tcp",
+        "dest_port": 3389,
+        "action": "deny",
+        "src_zone": "internal",
+        "dest_zone": "internal",
+        "src_ip": "192.0.2.10",
+        "dest_ip": "192.0.2.21"
+      },
+      {
+        "_time": 1800000000,
+        "log_type": "fw",
+        "transport": "tcp",
+        "dest_port": 3389,
+        "action": "deny",
+        "src_zone": "internal",
+        "dest_zone": "internal",
+        "src_ip": "192.0.2.10",
+        "dest_ip": "192.0.2.22"
+      },
+      {
+        "_time": 1800000000,
+        "log_type": "fw",
+        "transport": "tcp",
+        "dest_port": 3389,
+        "action": "deny",
+        "src_zone": "internal",
+        "dest_zone": "internal",
+        "src_ip": "192.0.2.10",
+        "dest_ip": "192.0.2.23"
+      },
+      {
+        "_time": 1800000000,
+        "log_type": "fw",
+        "transport": "tcp",
+        "dest_port": 3389,
+        "action": "deny",
+        "src_zone": "internal",
+        "dest_zone": "internal",
+        "src_ip": "192.0.2.10",
+        "dest_ip": "192.0.2.24"
+      },
+      {
+        "_time": 1800000000,
+        "log_type": "fw",
+        "transport": "tcp",
+        "dest_port": 3389,
+        "action": "deny",
+        "src_zone": "internal",
+        "dest_zone": "internal",
+        "src_ip": "192.0.2.10",
+        "dest_ip": "192.0.2.25"
+      },
+      {
+        "_time": 1800000000,
+        "log_type": "fw",
+        "transport": "tcp",
+        "dest_port": 3389,
+        "action": "deny",
+        "src_zone": "internal",
+        "dest_zone": "internal",
+        "src_ip": "192.0.2.10",
+        "dest_ip": "192.0.2.26"
+      },
+      {
+        "_time": 1800000000,
+        "log_type": "fw",
+        "transport": "tcp",
+        "dest_port": 3389,
+        "action": "deny",
+        "src_zone": "internal",
+        "dest_zone": "internal",
+        "src_ip": "192.0.2.10",
+        "dest_ip": "192.0.2.27"
+      },
+      {
+        "_time": 1800000000,
+        "log_type": "fw",
+        "transport": "tcp",
+        "dest_port": 3389,
+        "action": "deny",
+        "src_zone": "internal",
+        "dest_zone": "internal",
+        "src_ip": "192.0.2.10",
+        "dest_ip": "192.0.2.28"
+      },
+      {
+        "_time": 1800000000,
+        "log_type": "fw",
+        "transport": "tcp",
+        "dest_port": 3389,
+        "action": "deny",
+        "src_zone": "internal",
+        "dest_zone": "internal",
+        "src_ip": "192.0.2.10",
+        "dest_ip": "192.0.2.29"
+      }
+    ],
+    "expected": false
+  }
+]

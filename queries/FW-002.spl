@@ -1,0 +1,5 @@
+index=detection_lab log_type="fw" earliest=-10m@m latest=-5m@m
+| where isnotnull(_time) AND isnotnull(action) AND isnotnull(dest_ip) AND isnotnull(dest_port) AND isnotnull(dest_zone) AND isnotnull(log_type) AND isnotnull(src_ip) AND isnotnull(src_zone) AND isnotnull(transport) AND transport="tcp" AND dest_port=3389 AND action="allow" AND src_zone="internal" AND dest_zone="internal"
+| stats dc(dest_ip) as observed min(_time) as first_seen max(_time) as last_seen by src_ip
+| where observed >= 10
+| eval rule_id="FW-002", attack_id="T1021.001"

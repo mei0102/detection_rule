@@ -1,0 +1,40 @@
+{
+  "id": "FW-001",
+  "title": "単一宛先への多数ポート接続試行",
+  "status": "experimental",
+  "created": "2026-09-09",
+  "log_source": "fw",
+  "attack_id": "T1046",
+  "tactic": "discovery",
+  "required_fields": [
+    "_time",
+    "dest_ip",
+    "dest_port",
+    "log_type",
+    "src_ip",
+    "transport"
+  ],
+  "conditions": [
+    [
+      "transport",
+      "eq",
+      "tcp"
+    ]
+  ],
+  "group_by": [
+    "src_ip",
+    "dest_ip"
+  ],
+  "window_seconds": 300,
+  "metric": "dest_port",
+  "threshold": 20,
+  "level": "medium",
+  "false_positives": "脆弱性スキャナ、監視、資産探索。",
+  "triage": "action、パケット数、送信元資産、スキャン承認、宛先の応答を確認。",
+  "prerequisites": "allow/deny双方のセッションログ。ポートを整数化しNAT前後を区別。",
+  "limitations": "5分20ポートの探索候補。低速・分散・同一ポートの横断探索は対象外。通信成功とは限らない。",
+  "references": [
+    "https://attack.mitre.org/techniques/T1046/"
+  ],
+  "provenance": "original; upstream ideas and references only; no copied rule text"
+}

@@ -1,0 +1,28 @@
+[
+  {
+    "name": "positive",
+    "events": [
+      {
+        "_time": 1800000000,
+        "log_type": "windows",
+        "channel": "Security",
+        "event_id": 1102,
+        "host": "lab-pc"
+      }
+    ],
+    "expected": true
+  },
+  {
+    "name": "negative",
+    "events": [
+      {
+        "_time": 1800000000,
+        "log_type": "windows",
+        "channel": "System",
+        "event_id": 1102,
+        "host": "lab-pc"
+      }
+    ],
+    "expected": false
+  }
+]

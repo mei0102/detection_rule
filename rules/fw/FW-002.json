@@ -1,0 +1,62 @@
+{
+  "id": "FW-002",
+  "title": "内部複数ホストへのRDPポート接続許可",
+  "status": "experimental",
+  "created": "2026-09-09",
+  "log_source": "fw",
+  "attack_id": "T1021.001",
+  "tactic": "lateral-movement",
+  "required_fields": [
+    "_time",
+    "action",
+    "dest_ip",
+    "dest_port",
+    "dest_zone",
+    "log_type",
+    "src_ip",
+    "src_zone",
+    "transport"
+  ],
+  "conditions": [
+    [
+      "transport",
+      "eq",
+      "tcp"
+    ],
+    [
+      "dest_port",
+      "eq",
+      3389
+    ],
+    [
+      "action",
+      "eq",
+      "allow"
+    ],
+    [
+      "src_zone",
+      "eq",
+      "internal"
+    ],
+    [
+      "dest_zone",
+      "eq",
+      "internal"
+    ]
+  ],
+  "group_by": [
+    "src_ip"
+  ],
+  "window_seconds": 300,
+  "metric": "dest_ip",
+  "threshold": 10,
+  "level": "medium",
+  "false_positives": "踏み台・管理ツール・運用者の一括接続。",
+  "triage": "4624 LogonType 10やNDRのRDP識別と照合。許可ログだけで認証成功としない。",
+  "prerequisites": "内部間通信のFW可視性。internalは組織の資産・ネットワーク定義で付与。",
+  "limitations": "3389はRDPの代理指標。横移動を証明しない。非標準ポートやFWを通らない通信は見えない。",
+  "references": [
+    "https://attack.mitre.org/techniques/T1021/001/"
+  ],
+  "provenance": "original; upstream ideas and references only; no copied rule text"
+}

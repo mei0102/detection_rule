@@ -1,0 +1,30 @@
+[
+  {
+    "name": "positive",
+    "events": [
+      {
+        "_time": 1800000000,
+        "log_type": "windows",
+        "channel": "Security",
+        "event_id": 4732,
+        "host": "server",
+        "target_sid": "S-1-5-32-544"
+      }
+    ],
+    "expected": true
+  },
+  {
+    "name": "negative",
+    "events": [
+      {
+        "_time": 1800000000,
+        "log_type": "windows",
+        "channel": "Security",
+        "event_id": 4732,
+        "host": "server",
+        "target_sid": "S-1-5-32-545"
+      }
+    ],
+    "expected": false
+  }
+]

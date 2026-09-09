@@ -1,0 +1,49 @@
+{
+  "id": "WIN-004",
+  "title": "ローカルAdministratorsへのメンバー追加",
+  "status": "experimental",
+  "created": "2026-09-09",
+  "log_source": "windows",
+  "attack_id": "T1098",
+  "tactic": "persistence",
+  "required_fields": [
+    "_time",
+    "channel",
+    "event_id",
+    "host",
+    "log_type",
+    "target_sid"
+  ],
+  "conditions": [
+    [
+      "channel",
+      "eq",
+      "Security"
+    ],
+    [
+      "event_id",
+      "eq",
+      4732
+    ],
+    [
+      "target_sid",
+      "eq",
+      "S-1-5-32-544"
+    ]
+  ],
+  "group_by": [
+    "host"
+  ],
+  "window_seconds": 300,
+  "metric": "count",
+  "threshold": 1,
+  "level": "medium",
+  "false_positives": "承認された権限付与。",
+  "triage": "SubjectUserName、MemberSid、MemberNameを取得して承認と照合し、その後のログオンを確認。",
+  "prerequisites": "Audit Security Group Management Success。TargetSidは追加先グループのSID。",
+  "limitations": "Domain Adminsへの4728や他の特権グループは対象外。権限悪用の前兆であり悪性確定ではない。",
+  "references": [
+    "https://attack.mitre.org/techniques/T1098/"
+  ],
+  "provenance": "original; upstream ideas and references only; no copied rule text"
+}

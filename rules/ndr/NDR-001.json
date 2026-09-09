@@ -1,0 +1,43 @@
+{
+  "id": "NDR-001",
+  "title": "長いDNSラベルを持つ多数の異なる問い合わせ",
+  "status": "experimental",
+  "created": "2026-09-09",
+  "log_source": "ndr",
+  "attack_id": "T1071.004",
+  "tactic": "command-and-control",
+  "required_fields": [
+    "_time",
+    "dns_query",
+    "log_type",
+    "protocol",
+    "src_ip"
+  ],
+  "conditions": [
+    [
+      "protocol",
+      "eq",
+      "dns"
+    ],
+    [
+      "dns_query",
+      "regex",
+      "(^|\\.)[^.]{50,63}(\\.|$)"
+    ]
+  ],
+  "group_by": [
+    "src_ip"
+  ],
+  "window_seconds": 300,
+  "metric": "dns_query",
+  "threshold": 20,
+  "level": "medium",
+  "false_positives": "CDN、トラッキング、セキュリティ製品。",
+  "triage": "親ドメイン別の件数、エントロピー、応答、プロセス、リゾルバ経由かを確認。",
+  "prerequisites": "クライアントを識別できるDNS問い合わせログ。dns_queryを小文字化し末尾ドット除去。",
+  "limitations": "DNSトンネルの候補であり確定ではない。DoH/DoTの暗号化、短いラベル、リゾルバ集約で見逃しや誤帰属がある。",
+  "references": [
+    "https://attack.mitre.org/techniques/T1071/004/"
+  ],
+  "provenance": "original; upstream ideas and references only; no copied rule text"
+}
