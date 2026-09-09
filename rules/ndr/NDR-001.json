@@ -16,12 +16,12 @@
   "conditions": [
     [
       "protocol",
-      "eq",
+      "=",
       "dns"
     ],
     [
       "dns_query",
-      "regex",
+      "~=",
       "(^|\\.)[^.]{50,63}(\\.|$)"
     ]
   ],
@@ -33,11 +33,48 @@
   "threshold": 20,
   "level": "medium",
   "false_positives": "CDN、トラッキング、セキュリティ製品。",
-  "triage": "親ドメイン別の件数、エントロピー、応答、プロセス、リゾルバ経由かを確認。",
-  "prerequisites": "クライアントを識別できるDNS問い合わせログ。dns_queryを小文字化し末尾ドット除去。",
-  "limitations": "DNSトンネルの候補であり確定ではない。DoH/DoTの暗号化、短いラベル、リゾルバ集約で見逃しや誤帰属がある。",
-  "references": [
-    "https://attack.mitre.org/techniques/T1071/004/"
+  "triage": [
+    "送信元を固定し、dns_queryの異なる値、問い合わせ時刻、query_type、rcode、answersを取得する。センサーの位置を確認し、src_ipが端末か集約リゾルバかを最初に判別する。",
+    "各ラベルの長さ、文字の分布、繰返し、ドメイン別の問い合わせ数を確認する。登録可能ドメインの集約はPublic Suffix List等に基づき、末尾2ラベルだけで機械的に区切らない。",
+    "過去7〜14日の同端末・同ドメインと比較し、CDN、AV/EDR、認証サービスの既知パターンか、初観測の長い問い合わせかを確認する。DNS応答コードは補助情報でありNXDOMAINだけを悪性としない。",
+    "Zeekならuidで接続ログと関連づけ、端末EDRのDNS照会プロセスや後続通信を確認する。複数端末が同じリゾルバに集約されている場合はクライアント側ログで帰属を解決する。",
+    "未知プロセス・未知ドメイン・持続的な符号化文字列が重なる場合は問い合わせ一覧と時系列を添えて担当へ引き継ぐ。ログ内のドメインへ能動的に問い合わせたりペイロードを実行したりしない。"
   ],
-  "provenance": "original; upstream ideas and references only; no copied rule text"
+  "prerequisites": "クライアントを識別できるDNS問い合わせログ。dns_queryを小文字化し末尾ドット除去。",
+  "limitations": [
+    "形状：50〜63文字のラベルを持つ20種類以上の名前のみ。短いラベル、同一名の反復、低速通信、窓を跨ぐ問い合わせは検出できない。",
+    "DNS可視性：暗号化されたDoH/DoTを復号できないセンサー、キャッシュ応答で上流に流れない照会は見えない。FWのDNSポートログだけでは適用できない。",
+    "帰属：リゾルバ側で複数端末が一つのsrc_ipに集約されると件数が過大になる。端末側の観測点かクライアント情報の補完が必要。",
+    "特異度：CDNやセキュリティ製品も長い一意ラベルを作る。エントロピー、登録可能ドメイン、応答、プロセスは本検知の条件外であり、DNSトンネルや流出量を断定しない。"
+  ],
+  "references": [
+    {
+      "title": "MITRE ATT&CK — T1071.004 DNS",
+      "url": "https://attack.mitre.org/techniques/T1071/004",
+      "summary": "DNSを利用したコマンド＆コントロールとプロトコル内の情報伝達を説明する技法ページ。DNS異常の調査目的として参照し、長さ50文字・20種類という条件は独自の初期仮説。",
+      "accessed": "2026-09-09"
+    },
+    {
+      "title": "Zeek — dns.log",
+      "url": "https://docs.zeek.org/en/current/reference/logs/dns.html",
+      "summary": "DNSログのquery、応答コード、接続識別子などの例を示す。問い合わせの正規化と接続ログへの調査に使用。",
+      "accessed": "2026-09-09"
+    }
+  ],
+  "provenance": "original; upstream ideas and references only; no copied rule text",
+  "attack_tactics": [
+    "command-and-control"
+  ],
+  "attack_rationale": "50〜63文字のラベルを含む20種類以上のDNS名をDNSベースC2の探索に用いる。長さと種類数による代理指標で、トンネルや情報持出しの成立は判定しない。",
+  "siem": "Splunk Enterprise / Splunk Cloud Platform (SPL)",
+  "modified": "2026-09-09",
+  "investigation_fields": [
+    "src_ip",
+    "dest_ip",
+    "dns_query",
+    "query_type",
+    "rcode",
+    "answers",
+    "uid"
+  ]
 }

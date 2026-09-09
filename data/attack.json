@@ -1,0 +1,282 @@
+{
+  "source": "https://raw.githubusercontent.com/mitre-attack/attack-stix-data/6cda5ad8462c79e14fbb872f4e09059b18e0cfc4/enterprise-attack/enterprise-attack.json",
+  "commit": "6cda5ad8462c79e14fbb872f4e09059b18e0cfc4",
+  "retrieved": "2026-09-09",
+  "tactics": [
+    {
+      "id": "TA0043",
+      "name": "Reconnaissance",
+      "slug": "reconnaissance",
+      "url": "https://attack.mitre.org/tactics/TA0043"
+    },
+    {
+      "id": "TA0042",
+      "name": "Resource Development",
+      "slug": "resource-development",
+      "url": "https://attack.mitre.org/tactics/TA0042"
+    },
+    {
+      "id": "TA0001",
+      "name": "Initial Access",
+      "slug": "initial-access",
+      "url": "https://attack.mitre.org/tactics/TA0001"
+    },
+    {
+      "id": "TA0002",
+      "name": "Execution",
+      "slug": "execution",
+      "url": "https://attack.mitre.org/tactics/TA0002"
+    },
+    {
+      "id": "TA0003",
+      "name": "Persistence",
+      "slug": "persistence",
+      "url": "https://attack.mitre.org/tactics/TA0003"
+    },
+    {
+      "id": "TA0004",
+      "name": "Privilege Escalation",
+      "slug": "privilege-escalation",
+      "url": "https://attack.mitre.org/tactics/TA0004"
+    },
+    {
+      "id": "TA0005",
+      "name": "Stealth",
+      "slug": "stealth",
+      "url": "https://attack.mitre.org/tactics/TA0005"
+    },
+    {
+      "id": "TA0112",
+      "name": "Defense Impairment",
+      "slug": "defense-impairment",
+      "url": "https://attack.mitre.org/tactics/TA0112"
+    },
+    {
+      "id": "TA0006",
+      "name": "Credential Access",
+      "slug": "credential-access",
+      "url": "https://attack.mitre.org/tactics/TA0006"
+    },
+    {
+      "id": "TA0007",
+      "name": "Discovery",
+      "slug": "discovery",
+      "url": "https://attack.mitre.org/tactics/TA0007"
+    },
+    {
+      "id": "TA0008",
+      "name": "Lateral Movement",
+      "slug": "lateral-movement",
+      "url": "https://attack.mitre.org/tactics/TA0008"
+    },
+    {
+      "id": "TA0009",
+      "name": "Collection",
+      "slug": "collection",
+      "url": "https://attack.mitre.org/tactics/TA0009"
+    },
+    {
+      "id": "TA0011",
+      "name": "Command and Control",
+      "slug": "command-and-control",
+      "url": "https://attack.mitre.org/tactics/TA0011"
+    },
+    {
+      "id": "TA0010",
+      "name": "Exfiltration",
+      "slug": "exfiltration",
+      "url": "https://attack.mitre.org/tactics/TA0010"
+    },
+    {
+      "id": "TA0040",
+      "name": "Impact",
+      "slug": "impact",
+      "url": "https://attack.mitre.org/tactics/TA0040"
+    }
+  ],
+  "techniques": {
+    "T1053.005": {
+      "id": "T1053.005",
+      "name": "Scheduled Task",
+      "url": "https://attack.mitre.org/techniques/T1053/005",
+      "tactics": [
+        "execution",
+        "persistence",
+        "privilege-escalation"
+      ],
+      "version": "1.8",
+      "modified": "2026-05-12T15:12:00.618Z"
+    },
+    "T1110.001": {
+      "id": "T1110.001",
+      "name": "Password Guessing",
+      "url": "https://attack.mitre.org/techniques/T1110/001",
+      "tactics": [
+        "credential-access"
+      ],
+      "version": "1.7",
+      "modified": "2026-05-12T15:12:00.620Z"
+    },
+    "T1071.004": {
+      "id": "T1071.004",
+      "name": "DNS",
+      "url": "https://attack.mitre.org/techniques/T1071/004",
+      "tactics": [
+        "command-and-control"
+      ],
+      "version": "1.4",
+      "modified": "2026-05-12T15:12:00.622Z"
+    },
+    "T1071": {
+      "id": "T1071",
+      "name": "Application Layer Protocol",
+      "url": "https://attack.mitre.org/techniques/T1071",
+      "tactics": [
+        "command-and-control"
+      ],
+      "version": "2.4",
+      "modified": "2025-10-24T17:48:38.368Z"
+    },
+    "T1053": {
+      "id": "T1053",
+      "name": "Scheduled Task/Job",
+      "url": "https://attack.mitre.org/techniques/T1053",
+      "tactics": [
+        "execution",
+        "persistence",
+        "privilege-escalation"
+      ],
+      "version": "2.5",
+      "modified": "2026-05-12T15:12:00.626Z"
+    },
+    "T1098.007": {
+      "id": "T1098.007",
+      "name": "Additional Local or Domain Groups",
+      "url": "https://attack.mitre.org/techniques/T1098/007",
+      "tactics": [
+        "persistence",
+        "privilege-escalation"
+      ],
+      "version": "1.1",
+      "modified": "2025-09-26T18:25:02.290Z"
+    },
+    "T1021": {
+      "id": "T1021",
+      "name": "Remote Services",
+      "url": "https://attack.mitre.org/techniques/T1021",
+      "tactics": [
+        "lateral-movement"
+      ],
+      "version": "1.6",
+      "modified": "2025-10-24T17:48:48.472Z"
+    },
+    "T1059": {
+      "id": "T1059",
+      "name": "Command and Scripting Interpreter",
+      "url": "https://attack.mitre.org/techniques/T1059",
+      "tactics": [
+        "execution"
+      ],
+      "version": "2.7",
+      "modified": "2026-05-12T15:12:00.641Z"
+    },
+    "T1685.005": {
+      "id": "T1685.005",
+      "name": "Clear Windows Event Logs",
+      "url": "https://attack.mitre.org/techniques/T1685/005",
+      "tactics": [
+        "defense-impairment"
+      ],
+      "version": "1.0",
+      "modified": "2026-05-12T15:12:00.642Z"
+    },
+    "T1059.001": {
+      "id": "T1059.001",
+      "name": "PowerShell",
+      "url": "https://attack.mitre.org/techniques/T1059/001",
+      "tactics": [
+        "execution"
+      ],
+      "version": "1.5",
+      "modified": "2026-05-12T15:12:00.706Z"
+    },
+    "T1098": {
+      "id": "T1098",
+      "name": "Account Manipulation",
+      "url": "https://attack.mitre.org/techniques/T1098",
+      "tactics": [
+        "persistence",
+        "privilege-escalation"
+      ],
+      "version": "2.8",
+      "modified": "2026-05-12T15:12:00.706Z"
+    },
+    "T1110": {
+      "id": "T1110",
+      "name": "Brute Force",
+      "url": "https://attack.mitre.org/techniques/T1110",
+      "tactics": [
+        "credential-access"
+      ],
+      "version": "2.8",
+      "modified": "2026-05-12T15:12:00.706Z"
+    },
+    "T1685": {
+      "id": "T1685",
+      "name": "Disable or Modify Tools",
+      "url": "https://attack.mitre.org/techniques/T1685",
+      "tactics": [
+        "defense-impairment"
+      ],
+      "version": "1.0",
+      "modified": "2026-05-12T15:12:00.712Z"
+    },
+    "T1046": {
+      "id": "T1046",
+      "name": "Network Service Discovery",
+      "url": "https://attack.mitre.org/techniques/T1046",
+      "tactics": [
+        "discovery"
+      ],
+      "version": "3.2",
+      "modified": "2026-05-12T15:12:00.723Z"
+    },
+    "T1105": {
+      "id": "T1105",
+      "name": "Ingress Tool Transfer",
+      "url": "https://attack.mitre.org/techniques/T1105",
+      "tactics": [
+        "command-and-control"
+      ],
+      "version": "2.6",
+      "modified": "2026-05-12T15:12:00.723Z"
+    },
+    "T1021.001": {
+      "id": "T1021.001",
+      "name": "Remote Desktop Protocol",
+      "url": "https://attack.mitre.org/techniques/T1021/001",
+      "tactics": [
+        "lateral-movement"
+      ],
+      "version": "1.4",
+      "modified": "2026-05-12T15:12:00.723Z"
+    }
+  },
+  "technique_counts_by_tactic": {
+    "reconnaissance": 46,
+    "resource-development": 50,
+    "initial-access": 22,
+    "execution": 64,
+    "persistence": 113,
+    "privilege-escalation": 96,
+    "stealth": 148,
+    "defense-impairment": 56,
+    "credential-access": 67,
+    "discovery": 49,
+    "lateral-movement": 23,
+    "collection": 41,
+    "command-and-control": 45,
+    "exfiltration": 19,
+    "impact": 33
+  }
+}

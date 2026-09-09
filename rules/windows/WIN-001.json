@@ -18,22 +18,22 @@
   "conditions": [
     [
       "channel",
-      "eq",
+      "=",
       "Security"
     ],
     [
       "event_id",
-      "eq",
+      "=",
       4688
     ],
     [
       "process_path",
-      "regex",
+      "~=",
       "(?i)(^|[\\\\/])(powershell|pwsh)\\.exe$"
     ],
     [
       "command_line",
-      "regex",
+      "~=",
       "(?i)(^|\\s)-(e|en|enc|enco|encod|encode|encoded|encodedc|encodedco|encodedcom|encodedcomm|encodedcomma|encodedcomman|encodedcommand)\\s+\\S+"
     ]
   ],
@@ -45,13 +45,60 @@
   "threshold": 1,
   "level": "medium",
   "false_positives": "構成管理・管理者の正規スクリプト。署名、親プロセス、利用者、実行時間を組み合わせて除外する。",
-  "triage": "元の4688、親プロセス、実行者、後続通信を確認。Base64は文字列として復号し、実行しない。",
-  "prerequisites": "Audit Process CreationとInclude command line in process creation eventsを有効化。",
-  "limitations": "名前変更、インプロセス実行、Unicodeスイッチは対象外。エンコードだけでは悪性と断定できない。",
-  "references": [
-    "https://attack.mitre.org/techniques/T1059/001/",
-    "https://github.com/SigmaHQ/sigma/blob/5c9b21756f4e3ba137c1773ac9ba5a8332188961/rules/windows/process_creation/proc_creation_win_powershell_base64_encoded_cmd.yml",
-    "https://github.com/splunk/security_content/blob/4cd62e811c5eddf1245c780d48823d7b38998566/detections/endpoint/malicious_powershell_process___encoded_command.yml"
+  "triage": [
+    "アラートのhostとfirst_seen/last_seenを起点に前後15分の4688を取得し、CommandLine、NewProcessName、NewProcessId、CreatorProcessId、SubjectUserName、SubjectLogonIdを原文で保存する。PIDは同じhost・近接時刻で照合し、再利用に注意する。",
+    "親プロセスがOffice・ブラウザ・一時ディレクトリ由来か、管理エージェントかを確認する。引数のBase64は隔離した解析環境で文字列へ復号し、URL・ファイルパス・追加プロセス起動の有無を調べる。復号した内容は実行しない。",
+    "収集済みならPowerShell Operationalの4104をScriptBlockId単位で再構成し、4688の利用者・時刻と照合する。4104がない場合は未実行とせず、Script Block Loggingの収集状態を確認する。",
+    "同じ端末のProxy/NDR通信とファイル作成・後続4688を時系列に並べる。IPとの紐付けは当該時刻のDHCP/資産履歴を使う。取得先、保存先、子プロセスが一連の処理かを確認する。",
+    "承認済みジョブの所有者・署名・スクリプトハッシュ・実行予定が一致すれば正常候補として記録する。未知の配布元、ユーザー不認知、外部取得と後続実行が重なる場合はインシデント担当へ引き継ぎ、元イベントと復号結果を添付する。"
   ],
-  "provenance": "original; upstream ideas and references only; no copied rule text"
+  "prerequisites": "Audit Process CreationとInclude command line in process creation eventsを有効化。",
+  "limitations": [
+    "観測範囲：powershell.exe/pwsh.exeという名前の4688とASCIIのハイフン引数に限定。実行ファイル名変更、PowerShell APIのインプロセス実行、Unicodeスイッチ、-ecや引用符を使う別表記はこの式では検出しない。",
+    "ログ不足：4688があってもCommandLineが空なら非検知。全4688に対するコマンドライン欠損率を監視し、監査ポリシー・GPO・転送時の切り詰めを確認する。Sysmon Event 1は別途マッピングが必要。",
+    "特異度：引数の存在だけでBase64の妥当性やスクリプト内容を評価しない。正規の構成管理にも一致するため、PowerShell全体や管理者全体を除外せず、承認済みジョブ単位で調整する。",
+    "集約：同じhostの5分内実行を1行にまとめるため、observedはアラート件数ではなく一致イベント数。調査SPLで個々のプロセスを確認し、攻撃プロセス数と混同しない。"
+  ],
+  "references": [
+    {
+      "title": "MITRE ATT&CK — T1059.001 PowerShell",
+      "url": "https://attack.mitre.org/techniques/T1059/001",
+      "summary": "PowerShellを利用したコマンド・スクリプト実行と攻撃事例を整理した技法ページ。実行手段の分類根拠として使用する。EncodedCommandの存在だけを悪性とする資料ではない。",
+      "accessed": "2026-09-09"
+    },
+    {
+      "title": "SigmaHQ — Suspicious Encoded PowerShell Command Line",
+      "url": "https://github.com/SigmaHQ/sigma/blob/5c9b21756f4e3ba137c1773ac9ba5a8332188961/rules/windows/process_creation/proc_creation_win_powershell_base64_encoded_cmd.yml",
+      "summary": "プロセス名とエンコード引数を組み合わせる公開検知例。比較対象として参照したが、本ルールは4688向けに独自実装し一致範囲も異なる。",
+      "accessed": "2026-09-09"
+    },
+    {
+      "title": "Splunk ESCU — Malicious PowerShell Process - Encoded Command",
+      "url": "https://github.com/splunk/security_content/blob/4cd62e811c5eddf1245c780d48823d7b38998566/detections/endpoint/malicious_powershell_process___encoded_command.yml",
+      "summary": "Endpointデータモデルを使うハンティングanalytic。必要なコマンドライン情報と誤検知を比較する参考であり、本SPLはこのCIM検索の移植ではない。",
+      "accessed": "2026-09-09"
+    },
+    {
+      "title": "Microsoft Learn — 4688(S): A new process has been created.",
+      "url": "https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-10/security/threat-protection/auditing/event-4688",
+      "summary": "プロセス作成監査の項目とCommandLine収集の前提を説明。実行ファイル・実行者・PIDを確認するための一次資料。",
+      "accessed": "2026-09-09"
+    }
+  ],
+  "provenance": "original; upstream ideas and references only; no copied rule text",
+  "attack_tactics": [
+    "execution"
+  ],
+  "attack_rationale": "4688の実行ファイル名とEncodedCommand系引数から、PowerShellによるスクリプト実行の候補を観測する。エンコード内容の悪性や実行成功は判定しない。",
+  "siem": "Splunk Enterprise / Splunk Cloud Platform (SPL)",
+  "modified": "2026-09-09",
+  "investigation_fields": [
+    "SubjectUserName",
+    "SubjectLogonId",
+    "NewProcessId",
+    "CreatorProcessId",
+    "ParentProcessName",
+    "command_line",
+    "process_path"
+  ]
 }

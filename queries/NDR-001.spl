@@ -1,5 +1,0 @@
-index=detection_lab log_type="ndr" earliest=-10m@m latest=-5m@m
-| where isnotnull(_time) AND isnotnull(dns_query) AND isnotnull(log_type) AND isnotnull(protocol) AND isnotnull(src_ip) AND protocol="dns" AND match(dns_query, "(^|\\.)[^.]{50,63}(\\.|$)")
-| stats dc(dns_query) as observed min(_time) as first_seen max(_time) as last_seen by src_ip
-| where observed >= 20
-| eval rule_id="NDR-001", attack_id="T1071.004"

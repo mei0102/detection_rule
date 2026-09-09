@@ -11,8 +11,8 @@ TTPを起点に、MITRE ATT&CK × 対象ログで検知を育てるリポジト�
 - [参考資料と出典管理](docs/references.md)：SigmaHQ、Splunk ESCU、YARAの位置づけ。
 - [日次追加の手順](docs/daily.md)：未カバーのTTPを優先して1日1件以上追加。
 - `rules/`：機械可読な独自JSON仕様。SigmaやYARAの形式ではありません。
-- `queries/`：JSON仕様から生成したSplunk SPL。ESCU/CIMへの依存なし。
-- `docs/rules/`：各ルールの必要フィールド、前提、誤検知、調査手順。
+- `docs/rules/`：検知SPL・調査SPLをMarkdown本文に収録。条件は `=` / `~=` / `>=` 表記。必要フィールド、誤検知、具体的な調査と限界、タイトル・概要付き参考文献も記載。
+- `data/attack.json`：公式STIXから抽出した戦術の順序と対象技法。固定commitと確認日を記録。
 - `tests/fixtures/`：無害な合成イベント。攻撃コマンドの実行は不要です。
 
 ```sh
@@ -20,5 +20,6 @@ python tools/build.py
 python -m unittest discover -s tests -v
 ```
 
-Python 3.11以上、追加パッケージ不要。利用するSIEM・製品名が決まったら、正規化マッピングとネイティブ検索を追加します。
+SIEMは **Splunk Enterprise / Splunk Cloud Platform** を想定。ESCU/CIMの導入は必須ではありません。各カードのSPLを利用し、製品別のフィールド抽出を[導入手順](docs/deployment.md)に沿って合わせます。
+Python 3.11以上、追加パッケージ不要。JSONは再生成・合成テスト用の内部定義です。
 ルールの件数を増やすことより、ログで観測できる根拠とテストを優先します。

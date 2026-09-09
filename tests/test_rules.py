@@ -7,7 +7,7 @@ from pathlib import Path
 
 ROOT=Path(__file__).resolve().parents[1]
 sys.path.insert(0,str(ROOT/'tools'))
-from build import load_rules, artifacts
+from build import load_rules, load_attack, artifacts, spl
 from evaluate import evaluate
 
 START=1800000000
@@ -38,9 +38,9 @@ class RulesTest(unittest.TestCase):
                 needed=set(r['group_by'])|{'_time','log_type'}
                 for field,op,value in r['conditions']:
                     self.assertRegex(field,r'^[A-Za-z_][A-Za-z0-9_]*$')
-                    self.assertIn(op,['eq','regex'])
+                    self.assertIn(op,['=','~='])
                     needed.add(field)
-                    if op=='regex': re.compile(value)
+                    if op=='~=': re.compile(value)
                 if r['metric']!='count': needed.add(r['metric'])
                 self.assertEqual(set(r['required_fields']),needed)
 
@@ -96,5 +96,29 @@ class RulesTest(unittest.TestCase):
         for path,content in artifacts(self.rules).items():
             with self.subTest(path=path):
                 self.assertEqual((ROOT/path).read_text(encoding='utf-8'),content)
+
+    def test_attack_positions_and_references(self):
+        attack=load_attack()
+        for r in self.rules:
+            with self.subTest(rule=r['id']):
+                tech=attack['techniques'][r['attack_id']]
+                self.assertEqual(set(r['attack_tactics']),set(tech['tactics']))
+                self.assertIn(r['tactic'],r['attack_tactics'])
+                self.assertIn(r['attack_id'].split('.')[0],attack['techniques'])
+                self.assertGreaterEqual(len(r['triage']),5)
+                self.assertGreaterEqual(len(r['limitations']),4)
+                for ref in r['references']:
+                    for key in ['title','url','summary','accessed']: self.assertTrue(ref[key])
+                card=(ROOT/f'docs/rules/{r["id"]}.md').read_text(encoding='utf-8')
+                self.assertIn('```spl\n'+spl(r)+'```',card)
+                self.assertNotIn('queries/',card)
+
+    def test_symbol_evaluation(self):
+        r=next(r for r in self.rules if r['id']=='WIN-001')
+        es=copy.deepcopy(self.positive(r))
+        es[0]['command_line']='powershell -ENC SQBFAFgA'
+        self.assertTrue(self.detect(r,es))
+        es[0]['process_path']='C:\\Windows\\notpowershell.exe'
+        self.assertFalse(self.detect(r,es))
 
 if __name__=='__main__': unittest.main()

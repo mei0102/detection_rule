@@ -17,7 +17,7 @@
   "conditions": [
     [
       "transport",
-      "eq",
+      "=",
       "tcp"
     ]
   ],
@@ -30,11 +30,45 @@
   "threshold": 20,
   "level": "medium",
   "false_positives": "脆弱性スキャナ、監視、資産探索。",
-  "triage": "action、パケット数、送信元資産、スキャン承認、宛先の応答を確認。",
-  "prerequisites": "allow/deny双方のセッションログ。ポートを整数化しNAT前後を区別。",
-  "limitations": "5分20ポートの探索候補。低速・分散・同一ポートの横断探索は対象外。通信成功とは限らない。",
-  "references": [
-    "https://attack.mitre.org/techniques/T1046/"
+  "triage": [
+    "src_ip/dest_ipを固定し、宛先ポート一覧、各ポートの件数、allow/deny、初回・最終時刻を確認する。SYN等のフラグやセッションIDを取得できる場合は、単発試行か確立したセッションかを区別する。",
+    "送信元の資産所有者と、当該時刻のNAT変換・DHCP・VPN割当を調べる。共有出口IPの複数利用者を一台のスキャナと扱わない。",
+    "脆弱性診断や資産探索の承認範囲・送信元・日時を照合する。既知スキャナでも想定外の宛先や時間なら正常として一括除外しない。",
+    "前後30分で同じ送信元の他宛先への試行も確認し、横断・縦断スキャンの広がりを調べる。NDRのアプリケーション識別や応答、サーバ側認証ログで到達後の操作を追う。",
+    "未承認の内部端末から多数サービスを探索し、その後に認証・脆弱性悪用の兆候があれば送信元の侵害調査へ進める。遮断だけの場合も対象範囲・継続性を記録し、成功した侵入とは報告しない。"
   ],
-  "provenance": "original; upstream ideas and references only; no copied rule text"
+  "prerequisites": "allow/deny双方のセッションログ。ポートを整数化しNAT前後を区別。",
+  "limitations": [
+    "形状：同一宛先へのTCP縦断探索のみ。多数宛先の同一ポート、UDP、ICMP、20未満の選択的探索や低速探索は対象外。",
+    "可視性：FW経由の記録しか見えない。同一セグメント内部通信やサンプリング・ログ抑制がある場合、実際のポート数より少なくなる。",
+    "集計：allow/denyを両方含むため、blockedスキャンも一致する。dc(dest_port)はサービス数や成功セッション数ではない。",
+    "正規化と時刻：NAT後IPの集約、セッション終了時のみのログ出力、時刻ずれで5分の分布が変わる。検知窓の妥当性を製品のログ出力契機と合わせて評価する。"
+  ],
+  "references": [
+    {
+      "title": "MITRE ATT&CK — T1046 Network Service Discovery",
+      "url": "https://attack.mitre.org/techniques/T1046",
+      "summary": "稼働するサービスを特定するためのネットワーク探索を説明する技法ページ。多ポート試行の対応根拠として使用。20ポートという閾値は公式の推奨値ではなく初期仮説。",
+      "accessed": "2026-09-09"
+    }
+  ],
+  "provenance": "original; upstream ideas and references only; no copied rule text",
+  "attack_tactics": [
+    "discovery"
+  ],
+  "attack_rationale": "同じ宛先の20以上のTCPポートへの試行をNetwork Service Discovery候補に対応づける。ポート番号の分散を観測するルールで、サービスの識別や攻撃成功を示さない。",
+  "siem": "Splunk Enterprise / Splunk Cloud Platform (SPL)",
+  "modified": "2026-09-09",
+  "investigation_fields": [
+    "src_ip",
+    "dest_ip",
+    "dest_port",
+    "action",
+    "transport",
+    "src_port",
+    "session_id",
+    "packets",
+    "bytes_in",
+    "bytes_out"
+  ]
 }

@@ -17,17 +17,17 @@
   "conditions": [
     [
       "http_method",
-      "eq",
+      "=",
       "GET"
     ],
     [
       "http_status",
-      "eq",
+      "=",
       200
     ],
     [
       "user_agent",
-      "regex",
+      "~=",
       "(?i)WindowsPowerShell|PowerShell/"
     ]
   ],
@@ -39,11 +39,43 @@
   "threshold": 1,
   "level": "low",
   "false_positives": "運用スクリプトやAPI取得。",
-  "triage": "URL、宛先、ユーザーと同時刻4688/4104を確認。承認済み自動化と照合。",
-  "prerequisites": "HTTP User-Agentを保存。HTTPS CONNECTだけでは判定不能。",
-  "limitations": "User-Agentは偽装・省略可能。PowerShell通信だけでツール転送や悪性とは断定しない。",
-  "references": [
-    "https://attack.mitre.org/techniques/T1105/"
+  "triage": [
+    "src_ip、認証ユーザー、User-Agent全文、URL、応答サイズ、Content-Typeを確認し、ダウンロード・API呼出し・ヘルスチェックのどれに見えるか分類する。",
+    "送信元の前後15分の4688と、収集済みなら4104を調べ、PowerShellプロセス・引数・親プロセス・実行者と通信を関連づける。共有Proxy出口を端末IPと取り違えない。",
+    "同じユーザー・端末の過去7〜14日を調べ、定期ジョブの周期、既知の取得先、普段と異なるURLパスやデータ量を確認する。",
+    "既存のEDRテレメトリからファイル作成や後続実行を確認する。WIN-001との同時発生があれば復号内容のURLと比較するが、時間が近いだけで同一プロセスと断定しない。",
+    "所有者が確認できる運用ジョブは宛先・ユーザー・実行時間を含めて例外化する。ユーザー不認知の実行や未知宛先からの取得後に不審操作があれば証跡を引き継ぐ。"
   ],
-  "provenance": "original; upstream ideas and references only; no copied rule text"
+  "prerequisites": "HTTP User-Agentを保存。HTTPS CONNECTだけでは判定不能。",
+  "limitations": [
+    "自己申告：User-Agentは変更・省略・偽装できる。UAが一致してもPowerShellの実行証拠ではなく、不一致でもPowerShell通信を否定できない。",
+    "用途：文字列だけではツール転送とAPI取得を区別できない。ファイル内容や応答サイズを検知条件に含まないためハンティング用途から開始する。",
+    "対象条件：GET/200と二つのUAパターンだけ。別実装の既定UA、POST、部分応答、独自ヘッダ利用を網羅しない。",
+    "採取：HTTPS復号がないProxyやUAを保存しない設定では動かない。UAが空のイベントを正常扱いせず、ログ品質として監視する。"
+  ],
+  "references": [
+    {
+      "title": "MITRE ATT&CK — T1105 Ingress Tool Transfer",
+      "url": "https://attack.mitre.org/techniques/T1105",
+      "summary": "外部から侵害環境へツールやファイルを転送する挙動を説明する技法ページ。HTTP取得の調査目的を整理する参考で、拡張子やUser-Agentの一致自体を悪性の証拠とはしていない。",
+      "accessed": "2026-09-09"
+    }
+  ],
+  "provenance": "original; upstream ideas and references only; no copied rule text",
+  "attack_tactics": [
+    "command-and-control"
+  ],
+  "attack_rationale": "PowerShellを名乗るUser-Agentの取得を自動化されたツール転送の探索に使う。UAは自己申告で、PowerShellプロセスやファイル転送の証明ではない。",
+  "siem": "Splunk Enterprise / Splunk Cloud Platform (SPL)",
+  "modified": "2026-09-09",
+  "investigation_fields": [
+    "src_ip",
+    "user",
+    "url",
+    "http_method",
+    "http_status",
+    "user_agent",
+    "content_type",
+    "bytes_in"
+  ]
 }

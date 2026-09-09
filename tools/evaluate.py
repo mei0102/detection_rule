@@ -15,9 +15,9 @@ def evaluate(rule, events, start, end):
             continue
         matches=True
         for field,op,value in rule['conditions']:
-            if op=='eq':
+            if op=='=':
                 hit=event[field]==value
-            elif op=='regex':
+            elif op=='~=':
                 hit=re.search(value,str(event[field])) is not None
             else:
                 raise ValueError(op)
