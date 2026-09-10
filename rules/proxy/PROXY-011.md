@@ -6,6 +6,15 @@
 
 **過検知予想：** チャット、共同編集、相場配信、ネットワーク不安定時の再接続。利用目的の裏付けが必要で、単独で悪性とは判断しない。
 
+|判断の目安|内容|
+|---|---|
+|**重要度**|**P3：調査・相関の材料**（感染確定度ではない）|
+|重要度の理由|正規利用と重なる観測が中心。単独発報だけでインシデント扱いする根拠が弱い。|
+|ルールの役割|単独イベント・集約／補助シグナル|
+|発報したら|原則として単独Notableにせず、下記の追加証拠との相関やハンティングに使う。|
+|疑いを強める追加証拠|Webアプリ用途、切断理由、端末の接続プロセス。 正常な説明がつかず、同一主体の不正操作が裏付けられること。|
+|検知価値の評価|単独では低・相関用（設計上の判断。TP/FP・処理負荷は未検証）|
+
 |項目|内容|
 |---|---|
 |対象ログ|Proxy|
@@ -57,7 +66,7 @@ index=detection_lab log_type="proxy" dest_zone="external" earliest=-20m@m latest
     by src_ip url_host
 | where upgrades >= 10 AND active_minutes >= 3
 | eval rule_id="PROXY-011", attack_id="T1071.001",
-       risk_object=src_ip, risk_object_type="system", risk_score=20, severity="low"
+       risk_object=src_ip, risk_object_type="system", risk_score=10, severity="low"
 ```
 
 - 差分：新規。外部WebSocketへの繰り返し切替を調査対象として追加。
@@ -69,10 +78,10 @@ index=detection_lab log_type="proxy" dest_zone="external" earliest=-20m@m latest
 
 - 実行間隔：5分。
 - earliest/latest：`-20m@m` / `-5m@m`。
-- trigger：結果行数 > 0。まず調査結果として評価し、自動Notableは未設定。
+- trigger：結果行数 > 0で調査対象。単独Notableは非推奨。別の侵害兆候との相関後に通知を検討。
 - suppression/throttling：初期は無効。反復状況を確認後にrule_id・src_ip・宛先の組で15分抑制する案。別の攻撃を抑える可能性を評価。
-- severity：low（調査用の仮案）。
-- risk score：20（未検証）。Risk Analysisアクションの設定は別途必要で、SPL列だけでは加算されない。
+- severity：`low`（P3の調査優先度に対応。悪性確定ではない）。
+- risk score：`10`（未検証の相対値）。Risk Analysisアクションは別途設定。スコアだけで重要度を判断しない。
 - risk object／type：src_ip / system。共有Proxy・NATのIPを端末と誤認しないこと。
 - security domain：network。
 - notable title：PROXY-011 外部WebSocketへの繰り返し切替（採用時の案）。
@@ -92,8 +101,8 @@ index=detection_lab log_type="proxy" dest_zone="external" earliest=-20m@m latest
 - 採用判断に必要な確認事項：必要列・HTTPS可視性・社内要求元の識別、正常業務との衝突。
 - 不足データ：実ログ、必要列の充足率、正常業務台帳、TP/FP判定、実行時間、ESバージョン。
 - 最大のリスク：チャット、共同編集、相場配信、ネットワーク不安定時の再接続を攻撃と誤認すること。
-- 推奨判断：調査サーチ。
-- 推奨理由：双方向のWeb通信を、指示受信やリモート操作の経路に使っていないか調べる。 追加証拠を確認してからNotable/RBA化を判断する。
+- 推奨判断：調査サーチ（補助シグナル）。
+- 推奨理由：単独では正常利用との識別が弱いため。追加証拠を得てから相関用に採用する。
 
 ## 参考文献
 

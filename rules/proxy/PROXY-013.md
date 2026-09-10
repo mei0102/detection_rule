@@ -6,6 +6,15 @@
 
 **過検知予想：** IP指定の業務API、装置へのアップロード、転送試験。利用目的の裏付けが必要で、単独で悪性とは判断しない。
 
+|判断の目安|内容|
+|---|---|
+|**重要度**|**P3：調査・相関の材料**（感染確定度ではない）|
+|重要度の理由|正規利用と重なる観測が中心。単独発報だけでインシデント扱いする根拠が弱い。|
+|ルールの役割|単独イベント・集約／補助シグナル|
+|発報したら|原則として単独Notableにせず、下記の追加証拠との相関やハンティングに使う。|
+|疑いを強める追加証拠|IP所有者、業務API仕様、送信ファイル、端末の操作主体。 正常な説明がつかず、同一主体の不正操作が裏付けられること。|
+|検知価値の評価|単独では低・相関用（設計上の判断。TP/FP・処理負荷は未検証）|
+
 |項目|内容|
 |---|---|
 |対象ログ|Proxy|
@@ -59,7 +68,7 @@ index=detection_lab log_type="proxy" dest_zone="external" earliest=-20m@m latest
 | where requests >= 5 AND sent_bytes >= 52428800
     AND sent_bytes >= 10*max(received_bytes,1)
 | eval rule_id="PROXY-013", attack_id="T1041",
-       risk_object=src_ip, risk_object_type="system", risk_score=20, severity="low"
+       risk_object=src_ip, risk_object_type="system", risk_score=10, severity="low"
 ```
 
 - 差分：新規。IPアドレス直指定先への大量アップロードを調査対象として追加。
@@ -71,10 +80,10 @@ index=detection_lab log_type="proxy" dest_zone="external" earliest=-20m@m latest
 
 - 実行間隔：5分。
 - earliest/latest：`-20m@m` / `-5m@m`。
-- trigger：結果行数 > 0。まず調査結果として評価し、自動Notableは未設定。
+- trigger：結果行数 > 0で調査対象。単独Notableは非推奨。別の侵害兆候との相関後に通知を検討。
 - suppression/throttling：初期は無効。反復状況を確認後にrule_id・src_ip・宛先の組で15分抑制する案。別の攻撃を抑える可能性を評価。
-- severity：low（調査用の仮案）。
-- risk score：20（未検証）。Risk Analysisアクションの設定は別途必要で、SPL列だけでは加算されない。
+- severity：`low`（P3の調査優先度に対応。悪性確定ではない）。
+- risk score：`10`（未検証の相対値）。Risk Analysisアクションは別途設定。スコアだけで重要度を判断しない。
 - risk object／type：src_ip / system。共有Proxy・NATのIPを端末と誤認しないこと。
 - security domain：network。
 - notable title：PROXY-013 IPアドレス直指定先への大量アップロード（採用時の案）。
@@ -94,8 +103,8 @@ index=detection_lab log_type="proxy" dest_zone="external" earliest=-20m@m latest
 - 採用判断に必要な確認事項：必要列・HTTPS可視性・社内要求元の識別、正常業務との衝突。
 - 不足データ：実ログ、必要列の充足率、正常業務台帳、TP/FP判定、実行時間、ESバージョン。
 - 最大のリスク：IP指定の業務API、装置へのアップロード、転送試験を攻撃と誤認すること。
-- 推奨判断：調査サーチ。
-- 推奨理由：外部の直接指定先へデータを持ち出していないか調べる。 追加証拠を確認してからNotable/RBA化を判断する。
+- 推奨判断：調査サーチ（補助シグナル）。
+- 推奨理由：単独では正常利用との識別が弱いため。追加証拠を得てから相関用に採用する。
 
 ## 参考文献
 

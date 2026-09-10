@@ -6,6 +6,15 @@
 
 **過検知予想：** SQL教材の検索、診断ツール、SQLを入力する業務画面。利用目的の裏付けが必要で、単独で悪性とは判断しない。
 
+|判断の目安|内容|
+|---|---|
+|**重要度**|**P2：通常調査**（感染確定度ではない）|
+|重要度の理由|不審な操作・条件を絞っているが、SQL教材の検索、診断ツール、SQLを入力する業務画面でも成立し、追加確認が必要。|
+|ルールの役割|単独イベント・集約／調査候補|
+|発報したら|同一主体の前後操作を確認し、不正な後続操作や重要資産への影響があればP1へ引き上げる。|
+|疑いを強める追加証拠|元URLと入力箇所、診断許可、アプリ/DBログ、応答の違い。 正常な説明がつかず、同一主体の不正操作が裏付けられること。|
+|検知価値の評価|中（設計上の判断。TP/FP・処理負荷は未検証）|
+
 |項目|内容|
 |---|---|
 |対象ログ|Proxy|
@@ -59,7 +68,7 @@ index=detection_lab log_type="proxy" dest_zone="external" earliest=-20m@m latest
     by src_ip url_host
 | where requests >= 3 AND distinct_urls >= 3
 | eval rule_id="PROXY-018", attack_id="T1190",
-       risk_object=src_ip, risk_object_type="system", risk_score=20, severity="low"
+       risk_object=src_ip, risk_object_type="system", risk_score=40, severity="medium"
 ```
 
 - 差分：新規。SQLの構文をURLへ埋め込む要求の繰り返しを調査対象として追加。
@@ -73,8 +82,8 @@ index=detection_lab log_type="proxy" dest_zone="external" earliest=-20m@m latest
 - earliest/latest：`-20m@m` / `-5m@m`。
 - trigger：結果行数 > 0。まず調査結果として評価し、自動Notableは未設定。
 - suppression/throttling：初期は無効。反復状況を確認後にrule_id・src_ip・宛先の組で15分抑制する案。別の攻撃を抑える可能性を評価。
-- severity：low（調査用の仮案）。
-- risk score：20（未検証）。Risk Analysisアクションの設定は別途必要で、SPL列だけでは加算されない。
+- severity：`medium`（P2の調査優先度に対応。悪性確定ではない）。
+- risk score：`40`（未検証の相対値）。Risk Analysisアクションは別途設定。スコアだけで重要度を判断しない。
 - risk object／type：src_ip / system。共有Proxy・NATのIPを端末と誤認しないこと。
 - security domain：network。
 - notable title：PROXY-018 SQLの構文をURLへ埋め込む要求の繰り返し（採用時の案）。

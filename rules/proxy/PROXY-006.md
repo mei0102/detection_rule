@@ -6,6 +6,15 @@
 
 **過検知予想：** インストーラ、CI/CD。 悪性かどうかは、利用目的や実行主体の確認が必要。
 
+|判断の目安|内容|
+|---|---|
+|**重要度**|**P3：調査・相関の材料**（感染確定度ではない）|
+|重要度の理由|正規利用と重なる観測が中心。単独発報だけでインシデント扱いする根拠が弱い。|
+|ルールの役割|単独イベント・集約／補助シグナル|
+|発報したら|原則として単独Notableにせず、下記の追加証拠との相関やハンティングに使う。|
+|疑いを強める追加証拠|ビルドジョブ、取得物、保存先、端末実行。 正常な説明がつかず、同一主体の不正操作が裏付けられること。|
+|検知価値の評価|単独では低・相関用（設計上の判断。TP/FP・処理負荷は未検証）|
+
 |項目|内容|
 |---|---|
 |対象ログ|Proxy|
@@ -76,7 +85,7 @@ index=detection_lab log_type="proxy" earliest=-10m@m latest=-5m@m
     by src_ip
 | eval rule_id="PROXY-006", attack_id="T1105"
 | eval risk_object=src_ip, risk_object_type="system",
-       risk_score=40, severity="medium"
+       risk_score=10, severity="low"
 ```
 
 - 差分：末尾に`risk_object`、`risk_object_type`、`risk_score`、`severity`を追加。検知件数を変える条件変更はなし。列の追加だけではRiskイベント・Notableは生成されない。
@@ -88,10 +97,10 @@ index=detection_lab log_type="proxy" earliest=-10m@m latest=-5m@m
 
 - 実行間隔：5分（設定案）。
 - earliest/latest：`-10m@m` / `-5m@m`。取り込み遅延5分を仮定。
-- trigger：結果行数 > 0、各結果行を対象。評価後にRisk Analysis等の応答アクションを別途設定。自動のNotable生成は未設定。
+- trigger：結果行数 > 0で調査対象。単独Notableは非推奨。別の侵害兆候との相関後に通知を検討。
 - suppression/throttling：初期は無効。重複実績を確認後、同じrule_id・risk_objectの反復を検索窓相当で抑制する案。別対象・別段階まで抑える可能性があるため宛先等の追加キーを評価。
-- severity：`medium`（調査優先度の仮案、確信度ではない）。
-- risk score：`40`（未検証の相対値）。繰り返し発報と他ルールとの重複加算を評価してから使用。
+- severity：`low`（P3の調査優先度に対応。悪性確定ではない）。
+- risk score：`10`（未検証の相対値）。Risk Analysisアクションは別途設定。スコアだけで重要度を判断しない。
 - risk object／type：`src_ip` → `risk_object` / `system`。出力に残る主体を使用し、資産・ID正規化と共有IPを確認。
 - security domain：`network`。
 - notable title：`PROXY-006 Curl／Wgetによる実行形式の取得`。Notable化を採用する場合の案。
@@ -111,8 +120,8 @@ index=detection_lab log_type="proxy" earliest=-10m@m latest=-5m@m
 - 採用判断に必要な確認事項：HTTPSのURL可視性・HTTP項目とリクエスト単位バイトの取得状況。ビルドジョブ、取得物、保存先、端末実行で正常業務と識別できるか。
 - 不足データ：実index/sourcetype、必要列の充足率、ESバージョン、発報数・TP/FP判定、資産・業務台帳、実行時間。
 - 最大のリスク：インストーラ、CI/CDとの衝突と、UA変更、拡張子なしURL、HTML扱いの取りこぼし。
-- 推奨判断：実装候補（本番採用の確定ではない）。
-- 推奨理由：観測条件を具体化できるため。必須フィールドと正常業務の識別を確認してから採用を判断する。
+- 推奨判断：調査サーチ（補助シグナル）。
+- 推奨理由：単独では正常利用との識別が弱いため。追加証拠を得てから相関用に採用する。
 
 ## 参考文献
 
