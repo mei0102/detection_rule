@@ -4,7 +4,7 @@ Splunk向けの検知ルール集。各Markdownに汎化、検知意図と限界
 
 [ATT&CKマトリクス・ログ別集計](MATRIX.md)
 
-Windows Event **25件** ／ FW **10件** ／ Proxy **8件** ／ DNS **7件**（合計 **50件**）
+Windows Event **25件** ／ FW **10件** ／ Proxy **20件** ／ DNS **7件**（合計 **62件**）
 
 公開ルールを参考に、順序・集約・通信方向などを組み合わせて独自SPL化しています。元ルールの単純コピーではありません。
 
@@ -16,7 +16,9 @@ Windows Event **25件** ／ FW **10件** ／ Proxy **8件** ／ DNS **7件**（�
 
 必要フィールドは実装要件であり、実環境での取得確認済み一覧ではありません。CIM対応・Data Model加速の有無は未確認です。「検知意図と限界」「誤検知」「drilldown」で取りこぼす行動と次の確認先を示します。
 
-現行SPLは変更前のリポジトリ版（5d42ac6）を折りたたみ表示しています。提案SPLは検知条件を維持し、ES用の出力列を追加した版です。Risk Analysis・Notableのアクション設定や顧客環境への適用は行っていません。
+各ルールは「検知概要・検知意図・過検知予想」から読み始められます。既存50件の現行SPLは変更前のリポジトリ版（5d42ac6）を折りたたみ表示しています。既存分の提案SPLは検知条件を維持し、ES用の出力列を追加した版です。新規分は現行SPLなしと記載しています。Risk Analysis・Notableのアクション設定や顧客環境への適用は行っていません。
+
+新規PROXY-009〜020は外向きForward Proxyの調査ルールです。Web攻撃要求のルールも、社内端末から外部サイトへ送信した要求を扱います。社内Webサーバーへの受信攻撃を検知するには、別途Reverse Proxy／WAFログへの対応が必要です。
 
 ## Windows Event
 
@@ -74,7 +76,19 @@ Windows Event **25件** ／ FW **10件** ／ Proxy **8件** ／ DNS **7件**（�
 |[PROXY-005 外部WebDAV探索後のスクリプト取得](rules/proxy/PROXY-005.md)|T1105|
 |[PROXY-006 Curl／Wgetによる実行形式の取得](rules/proxy/PROXY-006.md)|T1105|
 |[PROXY-007 Webhookへの反復・大容量POST](rules/proxy/PROXY-007.md)|T1567.004|
-|[PROXY-008 同一URLへの低揺らぎ周期通信](rules/proxy/PROXY-008.md)|T1071.001|
+|[PROXY-008 同じURLへのほぼ一定間隔の通信](rules/proxy/PROXY-008.md)|T1071.001|
+|[PROXY-009 非標準ポートへのCONNECTトンネルの繰り返し](rules/proxy/PROXY-009.md)|T1572|
+|[PROXY-010 HTTPSでのDNS問い合わせを繰り返す端末](rules/proxy/PROXY-010.md)|T1071.004|
+|[PROXY-011 外部WebSocketへの繰り返し切替](rules/proxy/PROXY-011.md)|T1071.001|
+|[PROXY-012 長いパラメータを変えながら同じURLパスへ送信](rules/proxy/PROXY-012.md)|T1041|
+|[PROXY-013 IPアドレス直指定先への大量アップロード](rules/proxy/PROXY-013.md)|T1041|
+|[PROXY-014 コマンドライン取得ツールによる複数アーカイブ取得](rules/proxy/PROXY-014.md)|T1105|
+|[PROXY-015 文書や画像らしいURLから実行形式の応答](rules/proxy/PROXY-015.md)|T1105|
+|[PROXY-016 多数の存在しないWebパスを試す端末](rules/proxy/PROXY-016.md)|T1595.003|
+|[PROXY-017 親ディレクトリをたどるURL要求の繰り返し](rules/proxy/PROXY-017.md)|T1190|
+|[PROXY-018 SQLの構文をURLへ埋め込む要求の繰り返し](rules/proxy/PROXY-018.md)|T1190|
+|[PROXY-019 URLにシェルの連結記号とコマンドを含む要求](rules/proxy/PROXY-019.md)|T1190|
+|[PROXY-020 環境設定・Git・バックアップファイルを探す要求](rules/proxy/PROXY-020.md)|T1595.003|
 
 ## DNS
 
