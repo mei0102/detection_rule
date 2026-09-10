@@ -14,6 +14,8 @@ Windows Event **25件** ／ FW **10件** ／ Proxy **8件** ／ DNS **7件**（�
 
 閾値は設計上の初期値です。実ログでの効果・処理負荷・Splunk上の動作は未検証です。テストやチューニング資料は含めていません。
 
+必要フィールドは実装要件であり、実環境での取得確認済み一覧ではありません。CIM対応・Data Model加速の有無は未確認です。相関ルールは時系列・同一主体・複数兆候を条件にし、各ルールの「範囲」「調査」で取りこぼす行動と次の確認先を示します。
+
 ## Windows Event
 
 |ルール|ATT&CK|
@@ -25,7 +27,7 @@ Windows Event **25件** ／ FW **10件** ／ Proxy **8件** ／ DNS **7件**（�
 |[WIN-005 新規スケジュールタスクの作成](rules/windows/WIN-005.md)|T1053.005|
 |[WIN-006 複数ユーザーへの低回数パスワード試行](rules/windows/WIN-006.md)|T1110.003|
 |[WIN-007 認証失敗の集中後に同じ主体がログオン成功](rules/windows/WIN-007.md)|T1110.001|
-|[WIN-008 新規作成アカウントを直後にAdministratorsへ追加](rules/windows/WIN-008.md)|T1098.007|
+|[WIN-008 新規アカウントの管理者追加後のログオン](rules/windows/WIN-008.md)|T1098.007|
 |[WIN-009 ドメイン特権グループへのメンバー追加](rules/windows/WIN-009.md)|T1098.007|
 |[WIN-010 書込可能パスやシェルを使うサービス登録](rules/windows/WIN-010.md)|T1543.003|
 |[WIN-011 高権限タスクに書込可能パスの実行を設定](rules/windows/WIN-011.md)|T1053.005|
@@ -56,7 +58,7 @@ Windows Event **25件** ／ FW **10件** ／ Proxy **8件** ／ DNS **7件**（�
 |[FW-006 外部LDAPへの繰り返し接続](rules/fw/FW-006.md)|T1190|
 |[FW-007 同じ通信先への複数拒否後に許可](rules/fw/FW-007.md)|T1686|
 |[FW-008 HTTPSポート上で識別されたSSH通信](rules/fw/FW-008.md)|T1571|
-|[FW-009 非Webポートへの大容量・送信偏重通信](rules/fw/FW-009.md)|T1048|
+|[FW-009 外部非Web宛先への持続的な送信集中](rules/fw/FW-009.md)|T1048|
 |[FW-010 内部SMB経由の複数端末へのデータ配布](rules/fw/FW-010.md)|T1570|
 
 ## Proxy
@@ -66,7 +68,7 @@ Windows Event **25件** ／ FW **10件** ／ Proxy **8件** ／ DNS **7件**（�
 |[PROXY-001 実行形式を示すURLからの取得成功](rules/proxy/PROXY-001.md)|T1105|
 |[PROXY-002 PowerShell User-AgentからのHTTP取得](rules/proxy/PROXY-002.md)|T1105|
 |[PROXY-003 BITSによる外部IP直指定ダウンロード](rules/proxy/PROXY-003.md)|T1105|
-|[PROXY-004 Rcloneからクラウド保存先への大容量アップロード](rules/proxy/PROXY-004.md)|T1567.002|
+|[PROXY-004 クラウド保存先への継続的・集中的アップロード](rules/proxy/PROXY-004.md)|T1567.002|
 |[PROXY-005 外部WebDAV探索後のスクリプト取得](rules/proxy/PROXY-005.md)|T1105|
 |[PROXY-006 Curl／Wgetによる実行形式の取得](rules/proxy/PROXY-006.md)|T1105|
 |[PROXY-007 Webhookへの反復・大容量POST](rules/proxy/PROXY-007.md)|T1567.004|
@@ -77,7 +79,7 @@ Windows Event **25件** ／ FW **10件** ／ Proxy **8件** ／ DNS **7件**（�
 |ルール|ATT&CK|
 |---|---|
 |[DNS-001 長いDNSラベルを持つ多数の異なる問い合わせ](rules/dns/DNS-001.md)|T1071.004|
-|[DNS-002 多様な名前へのNXDOMAIN集中](rules/dns/DNS-002.md)|T1568.002|
+|[DNS-002 多様な名前への継続的なNXDOMAIN探索](rules/dns/DNS-002.md)|T1568.002|
 |[DNS-003 TXT応答にダウンロード・実行の文字列](rules/dns/DNS-003.md)|T1071.004|
 |[DNS-004 DNS ANY問い合わせの宛先集中](rules/dns/DNS-004.md)|T1498.002|
 |[DNS-005 複数ゾーンへの転送要求](rules/dns/DNS-005.md)|T1590.002|
