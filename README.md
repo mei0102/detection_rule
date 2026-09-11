@@ -4,7 +4,7 @@ Splunk向けの検知ルール集。各Markdownに汎化、検知意図と限界
 
 [ATT&CKマトリクス・ログ別集計](MATRIX.md)
 
-Windows Event **28件** ／ FW **10件** ／ Proxy **20件** ／ DNS **7件**（合計 **65件**）
+Windows Event **29件** ／ FW **10件** ／ Proxy **20件** ／ DNS **7件**（合計 **66件**）
 
 公開ルールを参考に、順序・集約・通信方向などを組み合わせて独自SPL化しています。元ルールの単純コピーではありません。
 
@@ -26,7 +26,7 @@ Windows Event **28件** ／ FW **10件** ／ Proxy **20件** ／ DNS **7件**（
 
 |重要度|位置づけ|件数|
 |---|---|---:|
-|P1|先行トリアージ。資格情報・復旧手段・侵入の定着に関係する具体的な操作|8|
+|P1|先行トリアージ。資格情報・復旧手段・侵入の定着に関係する具体的な操作|9|
 |P2|通常調査。追加証拠と業務確認で優先度を上げる|32|
 |P3|補助シグナル。単独Notableは原則非推奨|25|
 
@@ -39,6 +39,8 @@ Windows Event **28件** ／ FW **10件** ／ Proxy **20件** ／ DNS **7件**（
 |[WIN-028](rules/windows/WIN-028.md)|画像取得だけでなく、端末で画素読取とバイナリ保存が同居|Microsoft公開8月28日|
 
 各ルール内で情報源の信頼性とDetection Ideaの価値を分けています。上記以外の既存ルールを「最新脅威への対応済み」と扱っていません。全体のTP/FP・稼働負荷は未確認です。
+
+2026-09-11追加：[WIN-029](rules/windows/WIN-029.md) — ScreenConnectから複数の一時VBScriptを起動（P1）。Huntressの8月観測・9月更新を参照し、固定ファイル名を使わず親プロセス単位で集約。
 
 ## Windows Event
 
@@ -72,6 +74,7 @@ Windows Event **28件** ／ FW **10件** ／ Proxy **20件** ／ DNS **7件**（
 |[WIN-026 Pcaluaから起動したMSHTAがWebを参照](rules/windows/WIN-026.md)|P1|T1218.005|
 |[WIN-027 Denoの遠隔コード起動後に同じURLのタスクを登録](rules/windows/WIN-027.md)|P1|T1053.005|
 |[WIN-028 PowerShell内でWeb取得・画像の画素読取・バイナリ保存が同居](rules/windows/WIN-028.md)|P1|T1027.003|
+|[WIN-029 ScreenConnectから複数の一時VBScriptを起動](rules/windows/WIN-029.md)|P1|T1059.005|
 
 ## FW
 

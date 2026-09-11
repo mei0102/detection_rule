@@ -6,11 +6,11 @@
 
 |対象ログ|ルール数|対応技法数|
 |---|---:|---:|
-|Windows Event|28|20|
+|Windows Event|29|21|
 |FW|10|8|
 |Proxy|20|9|
 |DNS|7|5|
-|**合計**|**65**|**37**|
+|**合計**|**66**|**38**|
 
 技法数はサブ技法IDを含む重複なしの件数。複数戦術への掲載は重複計上しません。ルール一覧は[README](README.md)を参照。
 
@@ -29,6 +29,7 @@
 |[T1048 Exfiltration Over Alternative Protocol](https://attack.mitre.org/techniques/T1048)|—|[FW-009](rules/fw/FW-009.md)|—|—|
 |[T1053.005 Scheduled Task](https://attack.mitre.org/techniques/T1053/005)|[WIN-005](rules/windows/WIN-005.md), [WIN-011](rules/windows/WIN-011.md), [WIN-012](rules/windows/WIN-012.md), [WIN-027](rules/windows/WIN-027.md)|—|—|—|
 |[T1059.001 PowerShell](https://attack.mitre.org/techniques/T1059/001)|[WIN-001](rules/windows/WIN-001.md), [WIN-018](rules/windows/WIN-018.md)|—|—|—|
+|[T1059.005 Visual Basic](https://attack.mitre.org/techniques/T1059/005)|[WIN-029](rules/windows/WIN-029.md)|—|—|—|
 |[T1071.001 Web Protocols](https://attack.mitre.org/techniques/T1071/001)|—|—|[PROXY-008](rules/proxy/PROXY-008.md), [PROXY-011](rules/proxy/PROXY-011.md)|—|
 |[T1071.004 DNS](https://attack.mitre.org/techniques/T1071/004)|—|—|[PROXY-010](rules/proxy/PROXY-010.md)|[DNS-001](rules/dns/DNS-001.md), [DNS-003](rules/dns/DNS-003.md), [DNS-007](rules/dns/DNS-007.md)|
 |[T1098.007 Additional Local or Domain Groups](https://attack.mitre.org/techniques/T1098/007)|[WIN-004](rules/windows/WIN-004.md), [WIN-008](rules/windows/WIN-008.md), [WIN-009](rules/windows/WIN-009.md)|—|—|—|
@@ -62,8 +63,8 @@
 |---|---|---|---|---|---|---|---|
 |[T1590.002 DNS](https://attack.mitre.org/techniques/T1590/002)<br>[DNS-005](rules/dns/DNS-005.md)|—|[T1190 Exploit Public-Facing Application](https://attack.mitre.org/techniques/T1190)<br>[FW-006](rules/fw/FW-006.md), [PROXY-017](rules/proxy/PROXY-017.md), [PROXY-018](rules/proxy/PROXY-018.md), [PROXY-019](rules/proxy/PROXY-019.md)|[T1053.005 Scheduled Task](https://attack.mitre.org/techniques/T1053/005)<br>[WIN-005](rules/windows/WIN-005.md)（関連）, [WIN-011](rules/windows/WIN-011.md)（関連）, [WIN-012](rules/windows/WIN-012.md)（関連）, [WIN-027](rules/windows/WIN-027.md)（関連）|[T1053.005 Scheduled Task](https://attack.mitre.org/techniques/T1053/005)<br>[WIN-005](rules/windows/WIN-005.md), [WIN-011](rules/windows/WIN-011.md), [WIN-012](rules/windows/WIN-012.md), [WIN-027](rules/windows/WIN-027.md)|[T1053.005 Scheduled Task](https://attack.mitre.org/techniques/T1053/005)<br>[WIN-005](rules/windows/WIN-005.md)（関連）, [WIN-011](rules/windows/WIN-011.md)（関連）, [WIN-012](rules/windows/WIN-012.md)（関連）, [WIN-027](rules/windows/WIN-027.md)（関連）|[T1027.003 Steganography](https://attack.mitre.org/techniques/T1027/003)<br>[WIN-028](rules/windows/WIN-028.md)|[T1685 Disable or Modify Tools](https://attack.mitre.org/techniques/T1685)<br>[WIN-021](rules/windows/WIN-021.md)|
 |[T1595.003 Wordlist Scanning](https://attack.mitre.org/techniques/T1595/003)<br>[PROXY-016](rules/proxy/PROXY-016.md), [PROXY-020](rules/proxy/PROXY-020.md)| | |[T1059.001 PowerShell](https://attack.mitre.org/techniques/T1059/001)<br>[WIN-001](rules/windows/WIN-001.md), [WIN-018](rules/windows/WIN-018.md)|[T1098.007 Additional Local or Domain Groups](https://attack.mitre.org/techniques/T1098/007)<br>[WIN-004](rules/windows/WIN-004.md), [WIN-008](rules/windows/WIN-008.md), [WIN-009](rules/windows/WIN-009.md)|[T1098.007 Additional Local or Domain Groups](https://attack.mitre.org/techniques/T1098/007)<br>[WIN-004](rules/windows/WIN-004.md)（関連）, [WIN-008](rules/windows/WIN-008.md)（関連）, [WIN-009](rules/windows/WIN-009.md)（関連）|[T1197 BITS Jobs](https://attack.mitre.org/techniques/T1197)<br>[WIN-017](rules/windows/WIN-017.md)|[T1685.005 Clear Windows Event Logs](https://attack.mitre.org/techniques/T1685/005)<br>[WIN-002](rules/windows/WIN-002.md)|
-| | | |[T1197 BITS Jobs](https://attack.mitre.org/techniques/T1197)<br>[WIN-017](rules/windows/WIN-017.md)（関連）|[T1197 BITS Jobs](https://attack.mitre.org/techniques/T1197)<br>[WIN-017](rules/windows/WIN-017.md)（関連）|[T1543.003 Windows Service](https://attack.mitre.org/techniques/T1543/003)<br>[WIN-010](rules/windows/WIN-010.md)（関連）|[T1218.005 Mshta](https://attack.mitre.org/techniques/T1218/005)<br>[WIN-016](rules/windows/WIN-016.md), [WIN-026](rules/windows/WIN-026.md)|[T1686 Disable or Modify System Firewall](https://attack.mitre.org/techniques/T1686)<br>[FW-007](rules/fw/FW-007.md), [WIN-020](rules/windows/WIN-020.md)|
-| | | | |[T1543.003 Windows Service](https://attack.mitre.org/techniques/T1543/003)<br>[WIN-010](rules/windows/WIN-010.md)| |[T1218.010 Regsvr32](https://attack.mitre.org/techniques/T1218/010)<br>[WIN-015](rules/windows/WIN-015.md)| |
+| | | |[T1059.005 Visual Basic](https://attack.mitre.org/techniques/T1059/005)<br>[WIN-029](rules/windows/WIN-029.md)|[T1197 BITS Jobs](https://attack.mitre.org/techniques/T1197)<br>[WIN-017](rules/windows/WIN-017.md)（関連）|[T1543.003 Windows Service](https://attack.mitre.org/techniques/T1543/003)<br>[WIN-010](rules/windows/WIN-010.md)（関連）|[T1218.005 Mshta](https://attack.mitre.org/techniques/T1218/005)<br>[WIN-016](rules/windows/WIN-016.md), [WIN-026](rules/windows/WIN-026.md)|[T1686 Disable or Modify System Firewall](https://attack.mitre.org/techniques/T1686)<br>[FW-007](rules/fw/FW-007.md), [WIN-020](rules/windows/WIN-020.md)|
+| | | |[T1197 BITS Jobs](https://attack.mitre.org/techniques/T1197)<br>[WIN-017](rules/windows/WIN-017.md)（関連）|[T1543.003 Windows Service](https://attack.mitre.org/techniques/T1543/003)<br>[WIN-010](rules/windows/WIN-010.md)| |[T1218.010 Regsvr32](https://attack.mitre.org/techniques/T1218/010)<br>[WIN-015](rules/windows/WIN-015.md)| |
 
 ## ATT&CK 戦術列 9〜15
 
@@ -82,11 +83,11 @@
 
 ## 調査優先度の内訳
 
-技法数・ルール数は検知品質を保証しません。P3は補助シグナルとして区別します。
+技法数・ルール数は検知品質を保証しません。P3は補助シグナルです。
 
 |ログ|P1|P2|P3|
 |---|---:|---:|---:|
-|Windows Event|8|19|1|
+|Windows Event|9|19|1|
 |FW|0|4|6|
 |Proxy|0|7|13|
 |DNS|0|2|5|
