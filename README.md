@@ -4,7 +4,7 @@ Splunk向けの検知ルール集。各Markdownに汎化、検知意図と限界
 
 [ATT&CKマトリクス・ログ別集計](MATRIX.md)
 
-Windows Event **30件** ／ FW **10件** ／ Proxy **20件** ／ DNS **7件**（合計 **67件**）
+Windows Event **31件** ／ FW **10件** ／ Proxy **20件** ／ DNS **7件**（合計 **68件**）
 
 公開ルールを参考に、順序・集約・通信方向などを組み合わせて独自SPL化しています。元ルールの単純コピーではありません。
 
@@ -27,7 +27,7 @@ Windows Event **30件** ／ FW **10件** ／ Proxy **20件** ／ DNS **7件**（
 |重要度|位置づけ|件数|
 |---|---|---:|
 |P1|先行トリアージ。資格情報・復旧手段・侵入の定着に関係する具体的な操作|10|
-|P2|通常調査。追加証拠と業務確認で優先度を上げる|32|
+|P2|通常調査。追加証拠と業務確認で優先度を上げる|33|
 |P3|補助シグナル。単独Notableは原則非推奨|25|
 
 ## 今回優先した2026年の事例
@@ -43,6 +43,8 @@ Windows Event **30件** ／ FW **10件** ／ Proxy **20件** ／ DNS **7件**（
 2026-09-11追加：[WIN-029](rules/windows/WIN-029.md) — ScreenConnectから複数の一時VBScriptを起動（P1）。Huntressの8月観測・9月更新を参照し、固定ファイル名を使わず親プロセス単位で集約。
 
 2026-09-12追加：[WIN-030](rules/windows/WIN-030.md) — VBScript起動後、同じパスのRun登録を4688→4657で相関（P1）。4657のSet Value監査が必須です。
+
+2026-09-13追加：[WIN-031](rules/windows/WIN-031.md) — Defender除外指定とWeb取得・動的実行の同居（P2）。WIN-018の詳細化として調査をまとめ、二重加点を避けます。
 
 ## Windows Event
 
@@ -78,6 +80,7 @@ Windows Event **30件** ／ FW **10件** ／ Proxy **20件** ／ DNS **7件**（
 |[WIN-028 PowerShell内でWeb取得・画像の画素読取・バイナリ保存が同居](rules/windows/WIN-028.md)|P1|T1027.003|
 |[WIN-029 ScreenConnectから複数の一時VBScriptを起動](rules/windows/WIN-029.md)|P1|T1059.005|
 |[WIN-030 起動した一時VBScriptをRunキーへ登録](rules/windows/WIN-030.md)|P1|T1547.001|
+|[WIN-031 Defender除外指定とWeb取得・動的実行が同じPowerShellに同居](rules/windows/WIN-031.md)|P2|T1685|
 
 ## FW
 
