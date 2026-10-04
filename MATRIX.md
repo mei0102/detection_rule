@@ -6,11 +6,11 @@
 
 |対象ログ|ルール数|対応技法数|
 |---|---:|---:|
-|Windows Event|33|23|
+|Windows Event|34|24|
 |FW|10|8|
 |Proxy|20|9|
 |DNS|7|5|
-|**合計**|**70**|**40**|
+|**合計**|**71**|**41**|
 
 技法数はサブ技法IDを含む重複なしの件数。複数戦術への掲載は重複計上しません。ルール一覧は[README](README.md)を参照。
 
@@ -46,6 +46,7 @@
 |[T1543.003 Windows Service](https://attack.mitre.org/techniques/T1543/003)|[WIN-010](rules/windows/WIN-010.md), [WIN-032](rules/windows/WIN-032.md)|—|—|—|
 |[T1547.001 Registry Run Keys / Startup Folder](https://attack.mitre.org/techniques/T1547/001)|[WIN-030](rules/windows/WIN-030.md)|—|—|—|
 |[T1558.003 Kerberoasting](https://attack.mitre.org/techniques/T1558/003)|[WIN-023](rules/windows/WIN-023.md)|—|—|—|
+|[T1558.004 AS-REP Roasting](https://attack.mitre.org/techniques/T1558/004)|[WIN-034](rules/windows/WIN-034.md)|—|—|—|
 |[T1567.002 Exfiltration to Cloud Storage](https://attack.mitre.org/techniques/T1567/002)|—|—|[PROXY-004](rules/proxy/PROXY-004.md)|—|
 |[T1567.004 Exfiltration Over Webhook](https://attack.mitre.org/techniques/T1567/004)|—|—|[PROXY-007](rules/proxy/PROXY-007.md)|—|
 |[T1568.002 Domain Generation Algorithms](https://attack.mitre.org/techniques/T1568/002)|—|—|—|[DNS-002](rules/dns/DNS-002.md)|
@@ -79,6 +80,7 @@
 |[T1110.003 Password Spraying](https://attack.mitre.org/techniques/T1110/003)<br>[WIN-006](rules/windows/WIN-006.md)| | | |[T1568.002 Domain Generation Algorithms](https://attack.mitre.org/techniques/T1568/002)<br>[DNS-002](rules/dns/DNS-002.md)|[T1567.004 Exfiltration Over Webhook](https://attack.mitre.org/techniques/T1567/004)<br>[PROXY-007](rules/proxy/PROXY-007.md)| |
 |[T1187 Forced Authentication](https://attack.mitre.org/techniques/T1187)<br>[FW-005](rules/fw/FW-005.md)| | | |[T1571 Non-Standard Port](https://attack.mitre.org/techniques/T1571)<br>[FW-008](rules/fw/FW-008.md)| | |
 |[T1558.003 Kerberoasting](https://attack.mitre.org/techniques/T1558/003)<br>[WIN-023](rules/windows/WIN-023.md)| | | |[T1572 Protocol Tunneling](https://attack.mitre.org/techniques/T1572)<br>[PROXY-009](rules/proxy/PROXY-009.md)| | |
+|[T1558.004 AS-REP Roasting](https://attack.mitre.org/techniques/T1558/004)<br>[WIN-034](rules/windows/WIN-034.md)| | | | | | |
 
 「関連」は公式の所属戦術。ルール単独で各戦術の目的達成を証明するものではありません。親技法は各ルールに記載。
 
@@ -90,7 +92,7 @@
 
 |ログ|P1|P2|P3|
 |---|---:|---:|---:|
-|Windows Event|10|22|1|
+|Windows Event|11|22|1|
 |FW|0|4|6|
 |Proxy|0|7|13|
 |DNS|0|2|5|
