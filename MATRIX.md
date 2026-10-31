@@ -6,11 +6,11 @@
 
 |対象ログ|ルール数|対応技法数|
 |---|---:|---:|
-|Windows Event|37|26|
+|Windows Event|38|27|
 |FW|10|8|
 |Proxy|20|9|
 |DNS|7|5|
-|**合計**|**74**|**43**|
+|**合計**|**75**|**44**|
 
 技法数はサブ技法IDを含む重複なしの件数。複数戦術への掲載は重複計上しません。ルール一覧は[README](README.md)を参照。
 
@@ -20,6 +20,7 @@
 |---|---|---|---|---|
 |[T1003.001 LSASS Memory](https://attack.mitre.org/techniques/T1003/001)|[WIN-013](rules/windows/WIN-013.md)|—|—|—|
 |[T1003.002 Security Account Manager](https://attack.mitre.org/techniques/T1003/002)|[WIN-036](rules/windows/WIN-036.md)|—|—|—|
+|[T1003.003 NTDS](https://attack.mitre.org/techniques/T1003/003)|[WIN-038](rules/windows/WIN-038.md)|—|—|—|
 |[T1003.006 DCSync](https://attack.mitre.org/techniques/T1003/006)|[WIN-022](rules/windows/WIN-022.md)|—|—|—|
 |[T1018 Remote System Discovery](https://attack.mitre.org/techniques/T1018)|—|—|—|[DNS-006](rules/dns/DNS-006.md)|
 |[T1021.001 Remote Desktop Protocol](https://attack.mitre.org/techniques/T1021/001)|—|[FW-002](rules/fw/FW-002.md)|—|—|
@@ -79,10 +80,11 @@
 |---|---|---|---|---|---|---|
 |[T1003.001 LSASS Memory](https://attack.mitre.org/techniques/T1003/001)<br>[WIN-013](rules/windows/WIN-013.md)|[T1018 Remote System Discovery](https://attack.mitre.org/techniques/T1018)<br>[DNS-006](rules/dns/DNS-006.md)|[T1021.001 Remote Desktop Protocol](https://attack.mitre.org/techniques/T1021/001)<br>[FW-002](rules/fw/FW-002.md)|—|[T1071.001 Web Protocols](https://attack.mitre.org/techniques/T1071/001)<br>[PROXY-008](rules/proxy/PROXY-008.md), [PROXY-011](rules/proxy/PROXY-011.md)|[T1041 Exfiltration Over C2 Channel](https://attack.mitre.org/techniques/T1041)<br>[PROXY-012](rules/proxy/PROXY-012.md), [PROXY-013](rules/proxy/PROXY-013.md)|[T1490 Inhibit System Recovery](https://attack.mitre.org/techniques/T1490)<br>[WIN-019](rules/windows/WIN-019.md)|
 |[T1003.002 Security Account Manager](https://attack.mitre.org/techniques/T1003/002)<br>[WIN-036](rules/windows/WIN-036.md)|[T1046 Network Service Discovery](https://attack.mitre.org/techniques/T1046)<br>[FW-001](rules/fw/FW-001.md), [FW-003](rules/fw/FW-003.md), [FW-004](rules/fw/FW-004.md)|[T1021.006 Windows Remote Management](https://attack.mitre.org/techniques/T1021/006)<br>[WIN-025](rules/windows/WIN-025.md)| |[T1071.004 DNS](https://attack.mitre.org/techniques/T1071/004)<br>[DNS-001](rules/dns/DNS-001.md), [DNS-003](rules/dns/DNS-003.md), [DNS-007](rules/dns/DNS-007.md), [PROXY-010](rules/proxy/PROXY-010.md)|[T1048 Exfiltration Over Alternative Protocol](https://attack.mitre.org/techniques/T1048)<br>[FW-009](rules/fw/FW-009.md)|[T1498.002 Reflection Amplification](https://attack.mitre.org/techniques/T1498/002)<br>[DNS-004](rules/dns/DNS-004.md)|
-|[T1003.006 DCSync](https://attack.mitre.org/techniques/T1003/006)<br>[WIN-022](rules/windows/WIN-022.md)| |[T1570 Lateral Tool Transfer](https://attack.mitre.org/techniques/T1570)<br>[FW-010](rules/fw/FW-010.md), [WIN-024](rules/windows/WIN-024.md)| |[T1105 Ingress Tool Transfer](https://attack.mitre.org/techniques/T1105)<br>[PROXY-001](rules/proxy/PROXY-001.md), [PROXY-002](rules/proxy/PROXY-002.md), [PROXY-003](rules/proxy/PROXY-003.md), [PROXY-005](rules/proxy/PROXY-005.md), [PROXY-006](rules/proxy/PROXY-006.md), [PROXY-014](rules/proxy/PROXY-014.md), [PROXY-015](rules/proxy/PROXY-015.md), [WIN-014](rules/windows/WIN-014.md)|[T1567.002 Exfiltration to Cloud Storage](https://attack.mitre.org/techniques/T1567/002)<br>[PROXY-004](rules/proxy/PROXY-004.md)| |
-|[T1110.001 Password Guessing](https://attack.mitre.org/techniques/T1110/001)<br>[WIN-003](rules/windows/WIN-003.md), [WIN-007](rules/windows/WIN-007.md)| | | |[T1568.002 Domain Generation Algorithms](https://attack.mitre.org/techniques/T1568/002)<br>[DNS-002](rules/dns/DNS-002.md)|[T1567.004 Exfiltration Over Webhook](https://attack.mitre.org/techniques/T1567/004)<br>[PROXY-007](rules/proxy/PROXY-007.md)| |
-|[T1110.003 Password Spraying](https://attack.mitre.org/techniques/T1110/003)<br>[WIN-006](rules/windows/WIN-006.md)| | | |[T1571 Non-Standard Port](https://attack.mitre.org/techniques/T1571)<br>[FW-008](rules/fw/FW-008.md)| | |
-|[T1187 Forced Authentication](https://attack.mitre.org/techniques/T1187)<br>[FW-005](rules/fw/FW-005.md)| | | |[T1572 Protocol Tunneling](https://attack.mitre.org/techniques/T1572)<br>[PROXY-009](rules/proxy/PROXY-009.md)| | |
+|[T1003.003 NTDS](https://attack.mitre.org/techniques/T1003/003)<br>[WIN-038](rules/windows/WIN-038.md)| |[T1570 Lateral Tool Transfer](https://attack.mitre.org/techniques/T1570)<br>[FW-010](rules/fw/FW-010.md), [WIN-024](rules/windows/WIN-024.md)| |[T1105 Ingress Tool Transfer](https://attack.mitre.org/techniques/T1105)<br>[PROXY-001](rules/proxy/PROXY-001.md), [PROXY-002](rules/proxy/PROXY-002.md), [PROXY-003](rules/proxy/PROXY-003.md), [PROXY-005](rules/proxy/PROXY-005.md), [PROXY-006](rules/proxy/PROXY-006.md), [PROXY-014](rules/proxy/PROXY-014.md), [PROXY-015](rules/proxy/PROXY-015.md), [WIN-014](rules/windows/WIN-014.md)|[T1567.002 Exfiltration to Cloud Storage](https://attack.mitre.org/techniques/T1567/002)<br>[PROXY-004](rules/proxy/PROXY-004.md)| |
+|[T1003.006 DCSync](https://attack.mitre.org/techniques/T1003/006)<br>[WIN-022](rules/windows/WIN-022.md)| | | |[T1568.002 Domain Generation Algorithms](https://attack.mitre.org/techniques/T1568/002)<br>[DNS-002](rules/dns/DNS-002.md)|[T1567.004 Exfiltration Over Webhook](https://attack.mitre.org/techniques/T1567/004)<br>[PROXY-007](rules/proxy/PROXY-007.md)| |
+|[T1110.001 Password Guessing](https://attack.mitre.org/techniques/T1110/001)<br>[WIN-003](rules/windows/WIN-003.md), [WIN-007](rules/windows/WIN-007.md)| | | |[T1571 Non-Standard Port](https://attack.mitre.org/techniques/T1571)<br>[FW-008](rules/fw/FW-008.md)| | |
+|[T1110.003 Password Spraying](https://attack.mitre.org/techniques/T1110/003)<br>[WIN-006](rules/windows/WIN-006.md)| | | |[T1572 Protocol Tunneling](https://attack.mitre.org/techniques/T1572)<br>[PROXY-009](rules/proxy/PROXY-009.md)| | |
+|[T1187 Forced Authentication](https://attack.mitre.org/techniques/T1187)<br>[FW-005](rules/fw/FW-005.md)| | | | | | |
 |[T1558.003 Kerberoasting](https://attack.mitre.org/techniques/T1558/003)<br>[WIN-023](rules/windows/WIN-023.md)| | | | | | |
 |[T1558.004 AS-REP Roasting](https://attack.mitre.org/techniques/T1558/004)<br>[WIN-034](rules/windows/WIN-034.md)| | | | | | |
 
@@ -96,7 +98,7 @@
 
 |ログ|P1|P2|P3|
 |---|---:|---:|---:|
-|Windows Event|12|24|1|
+|Windows Event|13|24|1|
 |FW|0|4|6|
 |Proxy|0|7|13|
 |DNS|0|2|5|
