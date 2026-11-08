@@ -6,11 +6,11 @@
 
 |対象ログ|ルール数|対応技法数|
 |---|---:|---:|
-|Windows Event|40|28|
+|Windows Event|41|29|
 |FW|10|8|
 |Proxy|20|9|
 |DNS|7|5|
-|**合計**|**77**|**45**|
+|**合計**|**78**|**46**|
 
 技法数はサブ技法IDを含む重複なしの件数。複数戦術への掲載は重複計上しません。ルール一覧は[README](README.md)を参照。
 
@@ -48,6 +48,7 @@
 |[T1490 Inhibit System Recovery](https://attack.mitre.org/techniques/T1490)|[WIN-019](rules/windows/WIN-019.md), [WIN-039](rules/windows/WIN-039.md)|—|—|—|
 |[T1498.002 Reflection Amplification](https://attack.mitre.org/techniques/T1498/002)|—|—|—|[DNS-004](rules/dns/DNS-004.md)|
 |[T1543.003 Windows Service](https://attack.mitre.org/techniques/T1543/003)|[WIN-010](rules/windows/WIN-010.md), [WIN-032](rules/windows/WIN-032.md)|—|—|—|
+|[T1546.012 Image File Execution Options Injection](https://attack.mitre.org/techniques/T1546/012)|[WIN-041](rules/windows/WIN-041.md)|—|—|—|
 |[T1547.001 Registry Run Keys / Startup Folder](https://attack.mitre.org/techniques/T1547/001)|[WIN-030](rules/windows/WIN-030.md)|—|—|—|
 |[T1558.003 Kerberoasting](https://attack.mitre.org/techniques/T1558/003)|[WIN-023](rules/windows/WIN-023.md)|—|—|—|
 |[T1558.004 AS-REP Roasting](https://attack.mitre.org/techniques/T1558/004)|[WIN-034](rules/windows/WIN-034.md)|—|—|—|
@@ -73,6 +74,7 @@
 | | | |[T1059.005 Visual Basic](https://attack.mitre.org/techniques/T1059/005)<br>[WIN-029](rules/windows/WIN-029.md)|[T1098.007 Additional Local or Domain Groups](https://attack.mitre.org/techniques/T1098/007)<br>[WIN-004](rules/windows/WIN-004.md), [WIN-008](rules/windows/WIN-008.md), [WIN-009](rules/windows/WIN-009.md)|[T1098.007 Additional Local or Domain Groups](https://attack.mitre.org/techniques/T1098/007)<br>[WIN-004](rules/windows/WIN-004.md)（関連）, [WIN-008](rules/windows/WIN-008.md)（関連）, [WIN-009](rules/windows/WIN-009.md)（関連）|[T1218.005 Mshta](https://attack.mitre.org/techniques/T1218/005)<br>[WIN-016](rules/windows/WIN-016.md), [WIN-026](rules/windows/WIN-026.md)|[T1685.001 Disable or Modify Windows Event Log](https://attack.mitre.org/techniques/T1685/001)<br>[WIN-033](rules/windows/WIN-033.md)|
 | | | |[T1197 BITS Jobs](https://attack.mitre.org/techniques/T1197)<br>[WIN-017](rules/windows/WIN-017.md)（関連）|[T1197 BITS Jobs](https://attack.mitre.org/techniques/T1197)<br>[WIN-017](rules/windows/WIN-017.md)（関連）|[T1484.001 Group Policy Modification](https://attack.mitre.org/techniques/T1484/001)<br>[WIN-040](rules/windows/WIN-040.md)（関連）|[T1218.010 Regsvr32](https://attack.mitre.org/techniques/T1218/010)<br>[WIN-015](rules/windows/WIN-015.md)|[T1685.005 Clear Windows Event Logs](https://attack.mitre.org/techniques/T1685/005)<br>[WIN-002](rules/windows/WIN-002.md)|
 | | | | |[T1543.003 Windows Service](https://attack.mitre.org/techniques/T1543/003)<br>[WIN-010](rules/windows/WIN-010.md), [WIN-032](rules/windows/WIN-032.md)|[T1543.003 Windows Service](https://attack.mitre.org/techniques/T1543/003)<br>[WIN-010](rules/windows/WIN-010.md)（関連）, [WIN-032](rules/windows/WIN-032.md)（関連）| |[T1686 Disable or Modify System Firewall](https://attack.mitre.org/techniques/T1686)<br>[FW-007](rules/fw/FW-007.md), [WIN-020](rules/windows/WIN-020.md)|
+| | | | |[T1546.012 Image File Execution Options Injection](https://attack.mitre.org/techniques/T1546/012)<br>[WIN-041](rules/windows/WIN-041.md)（関連）|[T1546.012 Image File Execution Options Injection](https://attack.mitre.org/techniques/T1546/012)<br>[WIN-041](rules/windows/WIN-041.md)| | |
 | | | | |[T1547.001 Registry Run Keys / Startup Folder](https://attack.mitre.org/techniques/T1547/001)<br>[WIN-030](rules/windows/WIN-030.md)|[T1547.001 Registry Run Keys / Startup Folder](https://attack.mitre.org/techniques/T1547/001)<br>[WIN-030](rules/windows/WIN-030.md)（関連）| | |
 
 ## ATT&CK 戦術列 9〜15
@@ -99,7 +101,7 @@
 
 |ログ|P1|P2|P3|
 |---|---:|---:|---:|
-|Windows Event|14|25|1|
+|Windows Event|14|26|1|
 |FW|0|4|6|
 |Proxy|0|7|13|
 |DNS|0|2|5|
